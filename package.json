@@ -2,22 +2,27 @@
   "name": "pinterest-clone",
   "version": "1.0.0",
   "description": "Hello world!",
-  "main": "index.js",
   "scripts": {
-    "start": "parcel ./src/index.html"
+    "start": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JuliaVasiukevich/Pinterest-clone.git"
   },
   "keywords": [],
-  "author": "Julia Vasiukevich",
+  "author": "Julia Vasiukevich Julia kovalchuk Anna Britkina Anna Yurchenko",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JuliaVasiukevich/Pinterest-clone/issues"
   },
   "homepage": "https://github.com/JuliaVasiukevich/Pinterest-clone#readme",
   "devDependencies": {
-    "parcel-bundler": "^1.12.5"
+    "@parcel/transformer-sass": "^2.6.0",
+    "parcel": "^2.6.0",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
   }
 }
