@@ -1,10 +1,6 @@
-// @use "sass:map";
+@use "sass:map";
 
-// html {
-//   scroll-behavior: smooth;
-// }
-
-// body {
-//   font-size: $base-font-size;
-//   font-family: Raleway, sans-serif;
-// }
+body {
+  font-size: $base-font-size;
+  font-family: Raleway, sans-serif;
+}
