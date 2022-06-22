@@ -5,14 +5,14 @@
   "scripts": {
     "start": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html",
-    "server:dev": "nodemon server.js"
+    "server:dev": "nodemon ./src/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JuliaVasiukevich/Pinterest-clone.git"
   },
   "keywords": [],
-  "author": "Julia Vasiukevich Julia kovalchuk Anna Britkina Anna Yurchenko",
+  "author": "Julia Vasiukevich Julia Kovalchuk Anna Britkina Anna Yurchenko",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JuliaVasiukevich/Pinterest-clone/issues"
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "express": "^4.18.1",
+    "mongodb": "4.7",
     "mongoose": "^6.4.0"
   }
 }
