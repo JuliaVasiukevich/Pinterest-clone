@@ -1,9 +1,10 @@
-// @import "scss-reset/_reset.scss";
-@import "utils";
+@import "reset";
 @import "variables";
-// @import "fonts";
+@import "fonts";
 @import "base";
+@import "utils";
 
 // Components
 
 @import "../components/desk/desk";
+@import "../components/header/header";
