@@ -1,4 +1,4 @@
-// @import "scss-reset/_reset.scss";
+@import "reset";
 @import "utils";
 @import "variables";
 // @import "fonts";
@@ -7,3 +7,4 @@
 // Components
 
 @import "../components/desk/desk";
+@import "../components/modal-windows/modal-windows";
