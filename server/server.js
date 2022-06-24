@@ -11,6 +11,20 @@ const {
 mongoose.connect("mongodb+srv://Julia:Julia@cluster0.szljy.mongodb.net/Pinterest?retryWrites=true&w=majority");
 const path = require('path');
 
+var cors = require('cors')
+
+app.use(cors())
+
+var bodyParser = require('body-parser');
+
+var jsonParser = bodyParser.json();
+
+var urlencodedParser = bodyParser.urlencoded({
+  extended: false
+});
+
+
+
 const deskSchema = new Schema({
   title: String,
   pictures: [{
@@ -38,19 +52,32 @@ const authorModel = mongoose.model('Authors', authorSchema);
 const pictureModel = mongoose.model('Pictures', pictureSchema);
 
 
-// app.use(express.static('src'));
 app.use(express.static('dist'));
-app.use(express.static(path.join(__dirname, 'src', 'images')));
+app.use(express.static(path.join(__dirname, 'server', 'images')));
 
 app.get('/desks', async function (req, res) {
-    const desks = await deskModel.find().populate({
-        path: 'pictures',
-        populate: {
-          path: 'author',
-        }
-      });
-    res.json({data: desks});
+  const desks = await deskModel.find().populate({
+    path: 'pictures',
+    populate: {
+      path: 'author',
+    }
+  });
+  res.json({
+    data: desks
+  });
 });
+
+
+app.post('/desks', jsonParser, async (req, res) => {
+  const desk = req.body;
+  const deskDoc = new deskModel(desk);
+  await deskDoc.save();
+  res.json({
+    message: 'success',
+    data: deskDoc
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
