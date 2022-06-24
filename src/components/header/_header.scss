@@ -1,0 +1,71 @@
+@use "sass:map";
+
+// TODO: Add breakpoints solution
+// TODO: Add smooth animations and transitions
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+  }
+
+  &__name {
+    margin-right: 20px;
+    font-size: rem(18px);
+    line-height: rem(18px);
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-right: 20px;
+    padding: 10px;
+    border: 1px solid map.get($colors, "colorLightGray");
+    background-color: map.get($colors, "colorLightGray");
+    border-radius: 22px;
+  }
+
+  &__search-logo {
+    width: 15px;
+    height: 20px;
+    color: map.get($colors, "colorDarkGray");
+    margin: 0 10px;
+  }
+
+  &__searchbar {
+    width: 100%;
+    border: none;
+    background-color: inherit;
+    font-size: rem(15px);
+    line-height: rem(15px);
+
+    // TODO: Fix border colors in active and focused position
+
+    &:active,
+    &:focus {
+    }
+  }
+
+  &__selection {
+    justify-content: flex-end;
+    padding: 10px;
+    border: 1px solid map.get($colors, "colorLightGray");
+    background-color: map.get($colors, "colorLightGray");
+    color: map.get($colors, "colorDarkGray");
+    border-radius: 22px;
+    font-size: rem(15px);
+    line-height: rem(15px);
+
+    // TODO: Fix border colors in active and focused position
+
+    &:active,
+    &:focus {
+    }
+  }
+}
