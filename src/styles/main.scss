@@ -1,4 +1,5 @@
 @import "reset";
+
 @import "variables";
 @import "fonts";
 @import "base";
@@ -7,4 +8,5 @@
 // Components
 
 @import "../components/desk/desk";
+@import "../components/modal-windows/modal-windows";
 @import "../components/header/header";
