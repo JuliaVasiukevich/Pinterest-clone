@@ -4,3 +4,12 @@ $breakpoints: (
   mobile: rem(768px),
   tablet: rem(1024px),
 );
+
+$colors: (
+  colorMainRed: rgba(249, 0, 0, 1),
+  colorMainBlack: rgba(17, 17, 17, 1),
+  colorMainWhite: rgba(255, 255, 255, 1),
+  colorMainWhiteLight: rgba(255, 255, 255, 0.3),
+  colorDarkGray: rgba(118, 118, 118, 1),
+  colorLightGray: rgba(239, 239, 239, 1),
+);

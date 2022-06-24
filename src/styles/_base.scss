@@ -2,5 +2,10 @@
 
 body {
   font-size: $base-font-size;
-  font-family: Raleway, sans-serif;
+  font-family: "Roboto", sans-serif;
+  color: map.get($colors, "colorMainBlack");
+}
+
+.container {
+  margin: 30px 50px;
 }
