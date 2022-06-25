@@ -2,26 +2,48 @@ import {
     make
 } from "../../utils.js";
 
+// import imgs from '../../../server/images/pictures/*.jpg';
+// import ava from '../../../server/images/avatars/img1.jpg';
+
+
 fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
-    const url = res.data[0].pictures[0].url;
+    const url = '../../../server/images/pictures/' + res.data[0].pictures[0].url;
     renderImage(url);
 });
 
-const imgUrl = './images/pictures/';
+const imgUrl = '../../server/images/pictures/';
+const avaUrl = './images/avatars/';
 
 function renderImage(imageName) {
     const wrapper = document.getElementById('pep');
     const img = document.createElement('img');
-    img.src = imgUrl + imageName;
+    let img1 = new URL(`../../../server/images/pictures/${imageName}`, import.meta.url);
+    // import img222 from imageName;
+    img.src = img1;
     wrapper.append(img);
 }
 
+// fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
+//     const url = res.data[0].pictures[0].author.avatar;
+//     renderAvatar(url);
+// });
+
+// function renderAvatar(imageName) {
+//     const wrapper = document.getElementById('pep');
+//     const img = document.createElement('img');
+//     img.src = avaUrl + imageName;
+//     wrapper.append(img);
+// }
 
 
 export function getDesks(yourFunction) {
     return fetch('http://localhost:3000/desks').then(res => res.json())
         .then(res => {
-            const titles = res.data.map(desk => desk.title);
+            const titles = res.data.map(desk => {
+                if (desk.title !== 'archived') {
+                    return desk.title
+                }
+            });
             yourFunction(titles);
         })
 }

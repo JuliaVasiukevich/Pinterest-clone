@@ -53,7 +53,7 @@ const pictureModel = mongoose.model('Pictures', pictureSchema);
 
 
 app.use(express.static('dist'));
-app.use(express.static(path.join(__dirname, 'server', 'images')));
+// app.use(express.static(path.join(__dirname, 'server', 'images')));
 
 app.get('/desks', async function (req, res) {
   const desks = await deskModel.find().populate({
