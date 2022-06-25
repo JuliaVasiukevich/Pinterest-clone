@@ -1,4 +1,7 @@
-const desks = ["desk1", "desk2", "desk3"];
+import {
+  getDesks
+} from "../desk/desk.js";
+
 const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
 function make(tagName, className, attributes) {
@@ -39,7 +42,8 @@ export function generateModalDesk(modalWindow) {
   return desks;
 }
 
-generateModalDesk(desks);
+getDesks(generateModalDesk);
+
 
 export function generateModalСlaims(modalWindow) {
   const deskWrapper = make("div", "modal-wrapper");

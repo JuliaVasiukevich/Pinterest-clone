@@ -7,6 +7,8 @@ fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
     renderImage(url);
 });
 
+const imgUrl = './images/pictures/';
+
 function renderImage(imageName) {
     const wrapper = document.getElementById('pep');
     const img = document.createElement('img');
@@ -14,16 +16,37 @@ function renderImage(imageName) {
     wrapper.append(img);
 }
 
-export const desks = [];
-const imgUrl = './images/pictures/';
+// export const getDesks = function () {
+//     return fetch('http://localhost:3000/desks');
+// }
 
-fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
-    return res.data.map((desk) => {
-        return desks.push(desk.title)
-    })
-});
 
-console.log(desks);
+// export const desks = function() {
+
+//     fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
+//         const desks = [];
+//         res.data.map((desk) => {
+//             return desks.push(desk.title)
+//         })
+//         console.log(desks)
+//         return desks;
+//     });
+// }
+
+
+export function getDesks(yourFunction) {
+    return fetch('http://localhost:3000/desks').then(res => res.json())
+        .then(res => {
+            const titles = res.data.map(desk => desk.title);
+            yourFunction(titles);
+        })
+}
+// getDesks(yourFunction)
+//   .then(res => res.json())
+//   .then(res => {
+//     const titles = res.data.map(desk => desk.title);
+//     yourFunction(titles);
+//   });
 
 const wrapper = document.getElementById('pep');
 
