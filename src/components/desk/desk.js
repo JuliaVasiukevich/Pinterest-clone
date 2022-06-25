@@ -16,22 +16,6 @@ function renderImage(imageName) {
     wrapper.append(img);
 }
 
-// export const getDesks = function () {
-//     return fetch('http://localhost:3000/desks');
-// }
-
-
-// export const desks = function() {
-
-//     fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
-//         const desks = [];
-//         res.data.map((desk) => {
-//             return desks.push(desk.title)
-//         })
-//         console.log(desks)
-//         return desks;
-//     });
-// }
 
 
 export function getDesks(yourFunction) {
@@ -41,12 +25,6 @@ export function getDesks(yourFunction) {
             yourFunction(titles);
         })
 }
-// getDesks(yourFunction)
-//   .then(res => res.json())
-//   .then(res => {
-//     const titles = res.data.map(desk => desk.title);
-//     yourFunction(titles);
-//   });
 
 const wrapper = document.getElementById('pep');
 
