@@ -51,9 +51,8 @@ const deskModel = mongoose.model('Desks', deskSchema);
 const authorModel = mongoose.model('Authors', authorSchema);
 const pictureModel = mongoose.model('Pictures', pictureSchema);
 
+app.use(express.static('public'));
 
-app.use(express.static('dist'));
-// app.use(express.static(path.join(__dirname, 'server', 'images')));
 
 app.get('/desks', async function (req, res) {
   const desks = await deskModel.find().populate({
