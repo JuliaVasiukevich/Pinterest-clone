@@ -109,6 +109,12 @@ method может быть либо GET, либо POST и определяет, 
     }
   });
 
+  claimButtonSend.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log(event);
+    modalWrapper.remove();
+  })
+
   return;
 }
 
@@ -122,7 +128,7 @@ export function disappearModalWindows() {
       event.target.classList.contains("modal-body")
     ) {
       const modalWrapper = document.querySelector(".modal-wrapper");
-      modalWrapper.classList.add("modal-wrapper-active");
+      modalWrapper.remove();
     }
   });
 }
