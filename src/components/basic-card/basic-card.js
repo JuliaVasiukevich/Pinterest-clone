@@ -3,7 +3,7 @@ const cardsInfo = {
   pictures: [
     {
       author: {
-        avatar: '',
+        avatar: "",
         name: "Anna Julia",
         id: 1,
       },
@@ -44,8 +44,7 @@ const cardsInfo = {
     },
     {
       author: {
-        avatar:
-          "https://klike.net/uploads/posts/2019-03/1551511784_4.jpg",
+        avatar: "https://klike.net/uploads/posts/2019-03/1551511784_4.jpg",
         name: "Julia",
         id: 5,
       },
@@ -105,15 +104,14 @@ export function makeCards(data) {
 
     const descriptionBlock = make("div", ["card__description", "description"]);
     card.append(descriptionBlock);
-    
+
     if (item.author.avatar) {
       const avatarImage = make("img", "description__avatar-img", {
         src: `${item.author.avatar}`,
         alt: "avatar",
       });
       descriptionBlock.append(avatarImage);
-    } 
-    else {
+    } else {
       const avatarImage = make("div", "description__avatar-img");
       avatarImage.style.backgroundColor = `${makeRandomColor()}`;
       const avatarLetter = make("div", "description__avatar-letter");

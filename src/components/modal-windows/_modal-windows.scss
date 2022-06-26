@@ -1,12 +1,19 @@
+@use "sass:map";
+
 .modal-wrapper {
-  // position: fixed;
+  position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0 0 0/0.7);
+  background-color: map.get($colors, "colorBackgroundModalWindow");
   top: 0;
   left: 0;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.modal-wrapper-active {
+  top: -100%;
+  transition: all 0.8s ease 0s;
 }
 
 .modal-body {
@@ -18,19 +25,29 @@
 
 .modal-window {
   padding: 15px;
-  background-color: #fff;
+  background-color: map.get($colors, "colorMainWhite");
   border-radius: 10px;
-  border: 1.5px solid #a9a9a9;
+  border: 1.5px solid map.get($colors, "colorMainBlack");
+  box-shadow: 0 0 10px map.get($colors, "colorMainBlack");
 
   &__title {
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: rem(20px);
   }
 
   &__element {
     margin: 10px 0;
     cursor: pointer;
+
+    &:focus,
+    &:hover {
+      color: map.get($colors, "colorLightRed");
+      font-weight: bold;
+    }
+
+    &:active {
+      color: map.get($colors, "colorMainRed");
+    }
   }
 
   &__form {
@@ -55,18 +72,18 @@
   &__button {
     padding: 5px 15px;
     margin: 0 5px;
-    border: 1px solid #fff;
+    border: 1px solid map.get($colors, "colorMainWhite");
     border-radius: 50px;
     font-weight: 600;
     color: #444;
-    background-color: #fff;
+    background-color: map.get($colors, "colorMainWhite");
     box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
     cursor: pointer;
   }
 
   &__button-active {
-    background-color: rgb(232, 53, 53);
-    color: white;
-    border: 1px solid rgb(232, 53, 53);
+    background-color: map.get($colors, "colorLightRed");
+    color: map.get($colors, "colorMainWhite");
+    border: 1px solid map.get($colors, "colorLightRed");
   }
 }

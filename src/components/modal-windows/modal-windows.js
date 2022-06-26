@@ -1,6 +1,4 @@
-import {
-  getDesks
-} from "../desk/desk.js";
+import { getDesks } from "../desk/desk.js";
 
 const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
@@ -19,53 +17,61 @@ function make(tagName, className, attributes) {
   return element;
 }
 
-export function generateModalDesk(modalWindow) {
-  const deskWrapper = make("div", "modal-wrapper");
-  document.body.append(deskWrapper);
+export function appearModalWindows() {
+  document.body.addEventListener("click", (event) => {
+    if (
+      event.target.textContent == "Добавить на доску" ||
+      event.target.textContent == "Пожаловаться"
+    ) {
+      const modalWrapper = make("div", "modal-wrapper");
+      document.body.append(modalWrapper);
 
-  const deskBody = make("div", "modal-body");
-  deskWrapper.append(deskBody);
+      const modalBody = make("div", "modal-body");
+      modalWrapper.append(modalBody);
 
-  const desks = make("div", "modal-window");
-  deskBody.append(desks);
+      const modalWindow = make("div", "modal-window");
+      modalBody.append(modalWindow);
+
+      if (event.target.textContent === "Пожаловаться") {
+        generateModalСlaims(claims);
+      }
+
+      if (event.target.textContent === "Добавить на доску") {
+        getDesks(generateModalDesk);
+      }
+    }
+  });
+}
+
+function generateModalDesk(desksArray) {
+  const modalWindow = document.querySelector(".modal-window");
 
   const deskTitleElement = make("h1", "modal-window__title");
   deskTitleElement.innerHTML = `Модальное окно <br/> меню выбор доски`;
-  desks.append(deskTitleElement);
+  modalWindow.append(deskTitleElement);
 
-  for (let element of modalWindow) {
+  for (let element of desksArray) {
     let deskElement = make("p", "modal-window__element");
     deskElement.textContent = element;
-    desks.append(deskElement);
+    modalWindow.append(deskElement);
   }
-
-  return desks;
+  return;
 }
 
-getDesks(generateModalDesk);
-
-
-export function generateModalСlaims(modalWindow) {
-  const deskWrapper = make("div", "modal-wrapper");
-  document.body.append(deskWrapper);
-
-  const deskBody = make("div", "modal-body");
-  deskWrapper.append(deskBody);
-
-  const claims = make("div", "modal-window");
-  deskBody.append(claims);
+function generateModalСlaims(claimsArray) {
+  const modalWindow = document.querySelector(".modal-window");
 
   const claimTitleElement = make("h1", "modal-window__title");
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
-  claims.append(claimTitleElement);
+  modalWindow.append(claimTitleElement);
 
   const form = make("form", "modal-window__form");
-  claims.append(form);
+  modalWindow.append(form);
   /*Два атрибута HTML необходимы:
 action содержит адрес, который определяет, куда будет отправлена информация формы;
 method может быть либо GET, либо POST и определяет, как будет отправлена информация формы.*/
 
-  for (let element of modalWindow) {
+  for (let element of claimsArray) {
     let claimElement = make("label", "modal-window__form-element");
     claimElement.textContent = element;
 
@@ -95,13 +101,30 @@ method может быть либо GET, либо POST и определяет, 
   });
   claimButtons.append(claimButtonSend);
 
-  deskWrapper.addEventListener("click", (event) => {
+  const modalWrapper = document.querySelector(".modal-wrapper");
+
+  modalWrapper.addEventListener("click", (event) => {
     if (event.target.tagName === "LABEL") {
       claimButtonSend.classList.add("modal-window__button-active");
     }
   });
 
-  return claims;
+  return;
 }
 
-generateModalСlaims(claims);
+appearModalWindows();
+
+export function disappearModalWindows() {
+  document.body.addEventListener("click", (event) => {
+    if (
+      event.target.classList.contains("modal-wrapper") ||
+      event.target.classList.contains("modal-close") ||
+      event.target.classList.contains("modal-body")
+    ) {
+      const modalWrapper = document.querySelector(".modal-wrapper");
+      modalWrapper.classList.add("modal-wrapper-active");
+    }
+  });
+}
+
+disappearModalWindows();
