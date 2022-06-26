@@ -1,6 +1,4 @@
-import {
-  getDesks
-} from "../desk/desk.js";
+import { getDesks } from "../desk/desk.js";
 
 const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
@@ -43,7 +41,6 @@ export function generateModalDesk(modalWindow) {
 }
 
 getDesks(generateModalDesk);
-
 
 export function generateModalСlaims(modalWindow) {
   const deskWrapper = make("div", "modal-wrapper");
