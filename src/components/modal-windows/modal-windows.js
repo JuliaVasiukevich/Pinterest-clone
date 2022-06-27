@@ -1,3 +1,4 @@
+
 import { make } from "../../utils.js";
 import { getDesks } from "../desk/desk.js";
 import { claims } from "../../main.js";
@@ -44,8 +45,19 @@ function generateModalDesk(desksArray) {
   return;
 }
 
-function generateModalСlaims(claimsArray) {
-  const modalWindow = document.querySelector(".modal-window");
+
+getDesks(generateModalDesk);
+
+export function generateModalСlaims(modalWindow) {
+  const deskWrapper = make("div", "modal-wrapper");
+  document.body.append(deskWrapper);
+
+  const deskBody = make("div", "modal-body");
+  deskWrapper.append(deskBody);
+
+  const claims = make("div", "modal-window");
+  deskBody.append(claims);
+
 
   const claimTitleElement = make("h1", "modal-window__title");
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
@@ -125,6 +137,7 @@ export function disappearModalWindows() {
     }
   });
 }
+
 
 disappearModalWindows();
 
