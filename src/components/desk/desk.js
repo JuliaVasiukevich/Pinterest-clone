@@ -32,18 +32,20 @@
 //   wrapper.append(img);
 // }
 
-// export function getDesks(yourFunction) {
-//   return fetch("http://localhost:3000/desks")
-//     .then((res) => res.json())
-//     .then((res) => {
-//       const titles = res.data.map((desk) => {
-//         if (desk.title !== "archived") {
-//           return desk.title;
-//         }
-//       });
-//       yourFunction(titles);
-//     });
-// }
+
+export function getDesks(yourFunction) {
+  return fetch("http://localhost:3000/desks")
+    .then((res) => res.json())
+    .then((res) => {
+      const titles = res.data.map((desk) => {
+        if (desk.title !== "archived") {
+          return desk.title;
+        }
+      });
+      yourFunction(titles);
+    });
+}
+
 
 // const wrapper = document.getElementById("pep");
 
