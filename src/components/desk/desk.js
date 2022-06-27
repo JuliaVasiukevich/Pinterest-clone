@@ -32,6 +32,7 @@
 //   wrapper.append(img);
 // }
 
+
 export function getDesks(yourFunction) {
   return fetch("http://localhost:3000/desks")
     .then((res) => res.json())
@@ -44,6 +45,7 @@ export function getDesks(yourFunction) {
       yourFunction(titles);
     });
 }
+
 
 // const wrapper = document.getElementById("pep");
 

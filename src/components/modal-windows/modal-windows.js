@@ -28,6 +28,7 @@ document.body.addEventListener("click", (event) => {
       generateModalСlaims(claims);
     }
 
+
     if (event.target.classList.contains("card__desk")) {
       getDesks(generateModalDesk);
     }
@@ -50,10 +51,12 @@ function generateModalDesk(desksArray) {
   return;
 }
 
+
 // getDesks(generateModalDesk);
 
 function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
+
 
   const claimTitleElement = make("h1", "modal-window__title");
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
@@ -130,8 +133,6 @@ document.body.addEventListener("click", (event) => {
     modalWrapper.remove();
   }
 });
-
-
 
 
 // function switchByDesk() {
