@@ -1,6 +1,3 @@
-import { make } from "../../utils.js";
-import { makeRandomColor } from "../../utils.js";
-
 const cardsInfo = {
   title: "Desk 1",
   pictures: [
@@ -12,7 +9,6 @@ const cardsInfo = {
       },
       description: "Some text ",
       url: "https://jrnlst.ru/sites/default/files/covers/cover_6.jpg",
-      id: 1,
     },
     {
       author: {
@@ -23,7 +19,6 @@ const cardsInfo = {
       },
       description: "Some text ",
       url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 2,
     },
     {
       author: {
@@ -35,7 +30,6 @@ const cardsInfo = {
       description:
         "Some long text  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo natus temporibus",
       url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 3,
     },
     {
       author: {
@@ -47,7 +41,6 @@ const cardsInfo = {
       description:
         "Some long text  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo natus temporibus",
       url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 4,
     },
     {
       author: {
@@ -58,10 +51,28 @@ const cardsInfo = {
       description:
         "Some long text  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo natus temporibus",
       url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 5,
     },
   ],
 };
+
+function make(tagName, className, attributes) {
+  let element = document.createElement(tagName);
+  if (typeof className === "string") {
+    element.classList.add(className);
+  } else {
+    element.classList.add(...className);
+  }
+  for (let attributeName in attributes) {
+    element[attributeName] = attributes[attributeName];
+  }
+  return element;
+}
+
+function makeRandomColor() {
+  return (
+    "#" + (Math.random().toString(16) + "000000").substring(2, 8).toUpperCase()
+  );
+}
 
 export function makeCards(data) {
   const cards = make("section", "cards");
@@ -78,7 +89,6 @@ export function makeCards(data) {
       src: `${item["url"]}`,
       alt: "picture",
     });
-    cardImage.setAttribute("data-img_ID", `${item.id}`); //привязка к ID для дальнейшей работы с модальным окном
 
     const cardOverlay = make("div", "card__overlay");
     cardOverlay.style.backgroundColor = `url(${item["url"]})`;
@@ -120,8 +130,6 @@ export function makeCards(data) {
 
     const desctiptionText = make("div", "description__text");
     desctiptionText.textContent = `${item["description"]}`;
-    desctiptionText.setAttribute("data-img_ID", `${item.id}`);
-
     descriptionBlock.append(desctiptionText);
   }
   return cards;
