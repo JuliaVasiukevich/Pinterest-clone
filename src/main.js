@@ -9,4 +9,4 @@ fetch("http://localhost:3000/desks")
   .then((res) => res.json())
   .then((res) => console.log(res));
 
-const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
+export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];

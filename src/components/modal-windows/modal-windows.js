@@ -1,27 +1,13 @@
+import { make } from "../../utils.js";
 import { getDesks } from "../desk/desk.js";
-
-const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
-
-function make(tagName, className, attributes) {
-  let element = document.createElement(tagName);
-
-  if (typeof className === "string") {
-    element.classList.add(className);
-  } else {
-    element.classList.add(...className);
-  }
-
-  for (let attributeName in attributes) {
-    element[attributeName] = attributes[attributeName];
-  }
-  return element;
-}
+import { claims } from "../../main.js";
+import { makeCards } from "../basic-card/basic-card.js";
 
 export function appearModalWindows() {
   document.body.addEventListener("click", (event) => {
     if (
-      event.target.textContent == "Добавить на доску" ||
-      event.target.textContent == "Пожаловаться"
+      event.target.classList.contains("card__claim") ||
+      event.target.classList.contains("card__desk")
     ) {
       const modalWrapper = make("div", "modal-wrapper");
       document.body.append(modalWrapper);
@@ -32,11 +18,11 @@ export function appearModalWindows() {
       const modalWindow = make("div", "modal-window");
       modalBody.append(modalWindow);
 
-      if (event.target.textContent === "Пожаловаться") {
+      if (event.target.classList.contains("card__claim")) {
         generateModalСlaims(claims);
       }
 
-      if (event.target.textContent === "Добавить на доску") {
+      if (event.target.classList.contains("card__desk")) {
         getDesks(generateModalDesk);
       }
     }
@@ -109,11 +95,18 @@ method может быть либо GET, либо POST и определяет, 
     }
   });
 
-  claimButtonSend.addEventListener('click', (event) => {
-    event.preventDefault();
-    console.log(event);
-    modalWrapper.remove();
-  })
+  claimButtonSend.addEventListener("click", (event) => {
+    const radios = document.querySelectorAll(".modal-window__radio");
+
+    for (let radio of radios) {
+      if (radio.checked) {
+        console.log("Отправляем на почту"); //TODO: add send by email
+      } else {
+        event.preventDefault();
+        modalWrapper.remove();
+      }
+    }
+  });
 
   return;
 }
@@ -134,3 +127,9 @@ export function disappearModalWindows() {
 }
 
 disappearModalWindows();
+
+// function switchByDesk() {
+//   const deskElement = document.querySelectorAll(".modal-window__element");
+//   console.log(deskElement);
+// }
+// switchByDesk();
