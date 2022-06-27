@@ -84,11 +84,19 @@ export function makeCards(data) {
     cardOverlay.style.backgroundColor = `url(${item["url"]})`;
     pictureBox.append(cardImage, cardOverlay);
 
-    const buttonAddCardOnDesk = make("button", ["card__button", "button"]);
+    const buttonAddCardOnDesk = make("button", [
+      "card__button",
+      "button",
+      "card__desk",
+    ]);
     cardOverlay.append(buttonAddCardOnDesk);
     buttonAddCardOnDesk.textContent = "Добавить на доску";
 
-    const buttonComplain = make("button", ["card__button", "button"]);
+    const buttonComplain = make("button", [
+      "card__button",
+      "button",
+      "card__claim",
+    ]);
     cardOverlay.append(buttonComplain);
     buttonComplain.textContent = "Пожаловаться";
 
