@@ -1,7 +1,4 @@
-// import {
-//     make
-// } from "../../utils.js";
-
+import { make } from "../../utils.js";
 
 // fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
 //     const url = res.data[0].pictures[0].url;
@@ -11,7 +8,6 @@
 // const API_URL = 'http://localhost:3000'
 // const PICTURES_PREFIX = '/images/pictures/';
 // const AVATAR_PREFIX = '/images/avatars/';
-
 
 // function renderImage(imageName) {
 //     const wrapper = document.getElementById('pep');
@@ -32,17 +28,17 @@
 //     wrapper.append(img);
 // }
 
-
 export function getDesks(yourFunction) {
-    return fetch('http://localhost:3000/desks').then(res => res.json())
-        .then(res => {
-            const titles = res.data.map(desk => {
-                if (desk.title !== 'archived') {
-                    return desk.title
-                }
-            });
-            yourFunction(titles);
-        })
+  return fetch("http://localhost:3000/desks")
+    .then((res) => res.json())
+    .then((res) => {
+      const titles = res.data.map((desk) => {
+        if (desk.title !== "archived") {
+          return desk.title;
+        }
+      });
+      yourFunction(titles);
+    });
 }
 
 // const wrapper = document.getElementById('pep');
@@ -52,7 +48,6 @@ export function getDesks(yourFunction) {
 //     const button = make("button", "button__clear");
 //     button.textContent = 'Add';
 //     input.placeholder = 'Add desk';
-
 
 //     button.addEventListener('click', () => {
 
@@ -80,3 +75,28 @@ export function getDesks(yourFunction) {
 // };
 
 // createInputWithButton();
+
+// Making list of Desks
+
+function generateListOfDesks(desksArray) {
+  const select = document.querySelector(".header__selection");
+
+  for (let deskName in desksArray) {
+    if (desksArray[deskName]) {
+      const option = make("option", "header__option");
+      option.innerHTML = `${desksArray[deskName]}`;
+      select.append(option);
+    } else continue;
+  }
+}
+
+getDesks(generateListOfDesks);
+
+// This part is responsible for grid layout
+
+var elementMasonry = document.querySelector(".grid");
+
+var masonry = new Masonry(elementMasonry, {
+  itemSelector: ".grid-item",
+  columnWidth: 200,
+});
