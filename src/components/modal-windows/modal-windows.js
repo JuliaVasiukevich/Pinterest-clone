@@ -30,6 +30,8 @@ document.body.addEventListener("click", (event) => {
 
 
     if (event.target.classList.contains("card__desk")) {
+      let loading = make("div", "modal-window__loading");
+      modalWindow.append(loading);
       getDesks(generateModalDesk);
     }
   }
@@ -39,7 +41,7 @@ document.body.addEventListener("click", (event) => {
 function generateModalDesk(desksArray) {
   const modalWindow = document.querySelector(".modal-window");
 
-  const deskTitleElement = make("h1", "modal-window__title");
+  const deskTitleElement = make("h2", "modal-window__title");
   deskTitleElement.innerHTML = `Модальное окно <br/> меню выбор доски`;
   modalWindow.append(deskTitleElement);
 
@@ -48,6 +50,8 @@ function generateModalDesk(desksArray) {
     deskElement.textContent = element;
     modalWindow.append(deskElement);
   }
+  const loading = document.querySelector(".modal-window__loading");
+  loading.remove();
   return;
 }
 
@@ -58,7 +62,7 @@ function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
 
 
-  const claimTitleElement = make("h1", "modal-window__title");
+  const claimTitleElement = make("h2", "modal-window__title");
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
   modalWindow.append(claimTitleElement);
 

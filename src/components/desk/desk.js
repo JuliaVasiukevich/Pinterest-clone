@@ -72,9 +72,9 @@ export function getDesks(yourFunction) {
 //     function addNewDesk(newDesk) {
 //       fetch("http://localhost:3000/desks", {
 //         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
 //         body: JSON.stringify(newDesk),
 //       });
 //     }
