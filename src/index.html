@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
   <title>Pinterest-clone</title>
   <link rel="stylesheet" href="./styles/main.scss" />
   <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
@@ -26,21 +25,75 @@
           fill="#767676" />
       </svg>
 
-      <input class="header__searchbar" placeholder="Search" type="search" name="searchbar" id="searchbar" />
-    </div>
-    <select class="header__selection" size="1" name="desks">
-      <option disabled>Choose desk...</option>
-      <option selected value="Desk 1" id="desk1">Desk 1</option>
-      <option value="Desk 2" id="desk2">Desk 2</option>
-      <option value="Desk 3" id="desk3">Desk 3</option>
-    </select>
-    <label class="theme">
+        <input
+          class="header__searchbar"
+          placeholder="Search"
+          type="search"
+          name="searchbar"
+          id="searchbar"
+        />
+      </div>
+      <select class="header__selection" size="1" name="desks">
+        <option disabled>Choose desk...</option>
+      </select>    
+  <label class="theme">
       <input type="checkbox" class='theme__checkbox'>
       <span class="theme__span"></span>
     </label>
-  </header>
-  <section class="desk container"></section>
-  <footer class="footer container"></footer>
-</body>
+    </header>
+    <section class="desk container grid">
+      <div class="grid-item">1 Lorem ipsum dolor sit amet</div>
+      <div class="grid-item">2 Lorem ipsum dolor sit amet</div>
+      <div class="grid-item">3 Lorem ipsum dolor sit amet</div>
+      <div class="grid-item">4 Lorem ipsum dolor sit amet</div>
+      <div class="grid-item">5 Lorem ipsum dolor sit amet</div>
+    </section>
+    <footer class="footer container">
+      <hr />
+      <ul class="footer__menu menu">
+        <li>
+          <a
+            href="#"
+            class="menu__home"
+            data-tooltip="Please, click here to back on main page"
+            >Home</a
+          >
+        </li>
 
+        <li>
+          <a
+            href="#"
+            class="menu__about"
+            data-tooltip="This site was made only for practising of team's front-end skills and don't mean commercial or something illegal."
+            >About</a
+          >
+        </li>
+
+        <li>
+          <a
+            href="#"
+            class="menu__team"
+            data-tooltip="Team-lead: Julia V. & Anna B., Julia K., Anna Yu."
+            >Team</a
+          >
+        </li>
+
+        <li>
+          <a
+            href="#"
+            class="menu__contacts"
+            data-tooltip="Please, click here to see contacts."
+            >Contacts</a
+          >
+        </li>
+      </ul>
+      <p class="footer__legacy">
+        ©2022 TeachMeSkills | All Rights (not) Reserved
+      </p>
+    </footer>
+
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <script src="./components/desk/desk.js" type="module"></script>
+    <script src="./components/header/header.js" type="module"></script>
+  </body>
 </html>

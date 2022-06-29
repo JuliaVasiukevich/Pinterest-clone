@@ -19,6 +19,7 @@
     box-sizing: border-box;
   }
 
+
   &__logo {
     width: 30px;
     height: 30px;
@@ -55,12 +56,6 @@
     background-color: inherit;
     font-size: rem(15px);
     line-height: rem(15px);
-
-    // TODO: Fix border colors in active and focused position
-
-    &:active,
-    &:focus {
-    }
   }
 
   &__selection {
@@ -72,12 +67,6 @@
     border-radius: 22px;
     font-size: rem(15px);
     line-height: rem(15px);
-
-    // TODO: Fix border colors in active and focused position
-
-    &:active,
-    &:focus {
-    }
   }
 }
 

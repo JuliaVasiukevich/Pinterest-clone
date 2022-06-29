@@ -1,71 +1,78 @@
 import {
+  make
+} from "../../utils.js";
+import {
   getDesks
 } from "../desk/desk.js";
+import {
+  makeCards
+} from "../basic-card/basic-card.js";
 
-const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
+export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
-function make(tagName, className, attributes) {
-  let element = document.createElement(tagName);
+document.body.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("card__claim") ||
+    event.target.classList.contains("card__desk")
+  ) {
+    const modalWrapper = make("div", "modal-wrapper");
+    document.body.append(modalWrapper);
 
-  if (typeof className === "string") {
-    element.classList.add(className);
-  } else {
-    element.classList.add(...className);
+    const modalBody = make("div", "modal-body");
+    modalWrapper.append(modalBody);
+
+    const modalWindow = make("div", "modal-window");
+    modalBody.append(modalWindow);
+
+    if (event.target.classList.contains("card__claim")) {
+      generateModalСlaims(claims);
+    }
+
+
+    if (event.target.classList.contains("card__desk")) {
+      let loading = make("div", "modal-window__loading");
+      modalWindow.append(loading);
+      getDesks(generateModalDesk);
+    }
   }
+});
 
-  for (let attributeName in attributes) {
-    element[attributeName] = attributes[attributeName];
-  }
-  return element;
-}
 
-export function generateModalDesk(modalWindow) {
-  const deskWrapper = make("div", "modal-wrapper");
-  document.body.append(deskWrapper);
+function generateModalDesk(desksArray) {
+  const modalWindow = document.querySelector(".modal-window");
 
-  const deskBody = make("div", "modal-body");
-  deskWrapper.append(deskBody);
-
-  const desks = make("div", "modal-window");
-  deskBody.append(desks);
-
-  const deskTitleElement = make("h1", "modal-window__title");
+  const deskTitleElement = make("h2", "modal-window__title");
   deskTitleElement.innerHTML = `Модальное окно <br/> меню выбор доски`;
-  desks.append(deskTitleElement);
+  modalWindow.append(deskTitleElement);
 
-  for (let element of modalWindow) {
+  for (let element of desksArray) {
     let deskElement = make("p", "modal-window__element");
     deskElement.textContent = element;
-    desks.append(deskElement);
+    modalWindow.append(deskElement);
   }
-
-  return desks;
+  const loading = document.querySelector(".modal-window__loading");
+  loading.remove();
+  return;
 }
 
-getDesks(generateModalDesk);
+
+// getDesks(generateModalDesk);
+
+function generateModalСlaims(claimsArray) {
+  const modalWindow = document.querySelector(".modal-window");
 
 
-export function generateModalСlaims(modalWindow) {
-  const deskWrapper = make("div", "modal-wrapper");
-  document.body.append(deskWrapper);
-
-  const deskBody = make("div", "modal-body");
-  deskWrapper.append(deskBody);
-
-  const claims = make("div", "modal-window");
-  deskBody.append(claims);
-
-  const claimTitleElement = make("h1", "modal-window__title");
+  const claimTitleElement = make("h2", "modal-window__title");
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
-  claims.append(claimTitleElement);
+  modalWindow.append(claimTitleElement);
 
   const form = make("form", "modal-window__form");
-  claims.append(form);
+  modalWindow.append(form);
   /*Два атрибута HTML необходимы:
 action содержит адрес, который определяет, куда будет отправлена информация формы;
 method может быть либо GET, либо POST и определяет, как будет отправлена информация формы.*/
 
-  for (let element of modalWindow) {
+  for (let element of claimsArray) {
     let claimElement = make("label", "modal-window__form-element");
     claimElement.textContent = element;
 
@@ -95,13 +102,46 @@ method может быть либо GET, либо POST и определяет, 
   });
   claimButtons.append(claimButtonSend);
 
-  deskWrapper.addEventListener("click", (event) => {
+  const modalWrapper = document.querySelector(".modal-wrapper");
+
+  modalWrapper.addEventListener("click", (event) => {
     if (event.target.tagName === "LABEL") {
       claimButtonSend.classList.add("modal-window__button-active");
     }
   });
 
-  return claims;
+  claimButtonSend.addEventListener("click", (event) => {
+    const radios = document.querySelectorAll(".modal-window__radio");
+
+    for (let radio of radios) {
+      if (radio.checked) {
+        console.log("Отправляем на почту"); //TODO: add send by email
+      } else {
+        event.preventDefault();
+        modalWrapper.remove();
+      }
+    }
+  });
+
+  return;
 }
 
-generateModalСlaims(claims);
+
+document.body.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("modal-wrapper") ||
+    event.target.classList.contains("modal-close") ||
+    event.target.classList.contains("modal-body")
+  ) {
+    const modalWrapper = document.querySelector(".modal-wrapper");
+    modalWrapper.remove();
+  }
+});
+
+
+// function switchByDesk() {
+//   const deskElement = document.querySelectorAll(".modal-window__element");
+//   console.log(deskElement);
+// }
+// switchByDesk();
+// generateModalСlaims(claims);
