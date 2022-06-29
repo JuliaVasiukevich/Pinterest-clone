@@ -15,6 +15,11 @@
     outline-offset: 0;
   }
 
+  &__container {
+    box-sizing: border-box;
+  }
+
+
   &__logo {
     width: 30px;
     height: 30px;
@@ -63,4 +68,31 @@
     font-size: rem(15px);
     line-height: rem(15px);
   }
+}
+
+.theme {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__checkbox {
+    appearance: none;
+  }
+
+  &__span {
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/moon.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+.theme__checkbox:checked + .theme__span {
+  width: 30px;
+  height: 30px;
+  background-image: url(../images/sun.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
 }

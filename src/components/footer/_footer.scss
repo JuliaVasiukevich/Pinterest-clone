@@ -16,7 +16,9 @@
 [data-tooltip] {
   position: relative;
   font-weight: 600;
-  color: map.get($colors, "colorMainBlack");
+  @include themify($themes) {
+    color: themed("colorMainBlack");
+  }
 
   &::after {
     content: attr(data-tooltip);

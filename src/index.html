@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="pop">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,6 +8,10 @@
     <title>Pinterest-clone</title>
     <link rel="stylesheet" href="./styles/main.scss" />
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
+    <script defer src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <!-- <script src="./components/desk/desk.js" type="module"></script> -->
+    <!-- <script src="./components/header/header.js" type="module"></script> -->
+    <script defer src="./main.js" type="module"></script>
   </head>
 
   <body>
@@ -47,6 +51,10 @@
       <select class="header__selection" size="1" name="desks">
         <option disabled>Choose desk...</option>
       </select>
+      <label class="theme">
+        <input type="checkbox" class='theme__checkbox'>
+        <span class="theme__span"></span>
+      </label>
     </header>
     <section class="desk container grid">
       <div class="grid-item">1 Lorem ipsum dolor sit amet</div>
@@ -99,9 +107,5 @@
       </p>
     </footer>
 
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
-    <script src="./components/desk/desk.js" type="module"></script>
-    <script src="./components/header/header.js" type="module"></script>
-    <script defer src="./main.js" type="module"></script>
   </body>
 </html>
