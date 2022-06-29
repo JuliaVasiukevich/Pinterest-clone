@@ -1,7 +1,7 @@
 import { make } from "../../utils.js";
 import { makeRandomColor } from "../../utils.js";
 
-const cardsInfo = {
+let cardsInfo = {
   title: "Desk 1",
   pictures: [
     {
@@ -63,6 +63,11 @@ const cardsInfo = {
   ],
 };
 
+if (localStorage.length > 0) {
+  let json = localStorage.getItem("desk");
+  cardsInfo = JSON.parse(json);
+}
+
 export function makeCards(data) {
   const cards = make("section", "cards");
   document.body.append(cards);
@@ -78,7 +83,7 @@ export function makeCards(data) {
       src: `${item["url"]}`,
       alt: "picture",
     });
-    cardImage.setAttribute("data-img_ID", `${item.id}`); //привязка к ID для дальнейшей работы с модальным окном
+    cardImage.setAttribute("data-img_id", `${item.id}`); //привязка к ID для дальнейшей работы с модальным окном
 
     const cardOverlay = make("div", "card__overlay");
     cardOverlay.style.backgroundColor = `url(${item["url"]})`;
@@ -87,16 +92,18 @@ export function makeCards(data) {
     const buttonAddCardOnDesk = make("button", [
       "card__button",
       "button",
-      "card__desk",
+      "card__button-desk",
     ]);
+    buttonAddCardOnDesk.setAttribute("data-img_id", `${item.id}`);
     cardOverlay.append(buttonAddCardOnDesk);
     buttonAddCardOnDesk.textContent = "Добавить на доску";
 
     const buttonComplain = make("button", [
       "card__button",
       "button",
-      "card__claim",
+      "card__button-claim",
     ]);
+    buttonComplain.setAttribute("data-img_id", `${item.id}`);
     cardOverlay.append(buttonComplain);
     buttonComplain.textContent = "Пожаловаться";
 
@@ -120,7 +127,7 @@ export function makeCards(data) {
 
     const desctiptionText = make("div", "description__text");
     desctiptionText.textContent = `${item["description"]}`;
-    desctiptionText.setAttribute("data-img_ID", `${item.id}`);
+    desctiptionText.setAttribute("data-img_id", `${item.id}`);
 
     descriptionBlock.append(desctiptionText);
   }

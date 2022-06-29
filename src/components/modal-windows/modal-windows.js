@@ -1,21 +1,17 @@
-import {
-  make
-} from "../../utils.js";
-import {
-  getDesks
-} from "../desk/desk.js";
-import {
-  makeCards
-} from "../basic-card/basic-card.js";
+import { make } from "../../utils.js";
+import { getDesks } from "../desk/desk.js";
+import { makeCards } from "../basic-card/basic-card.js";
 
 export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
 document.body.addEventListener("click", (event) => {
   if (
-    event.target.classList.contains("card__claim") ||
-    event.target.classList.contains("card__desk")
+    event.target.classList.contains("card__button-claim") ||
+    event.target.classList.contains("card__button-desk")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
+    const pictureId = event.target.getAttribute("data-img_id");
+    modalWrapper.setAttribute("data-img_id", `${pictureId}`);
     document.body.append(modalWrapper);
 
     const modalBody = make("div", "modal-body");
@@ -24,17 +20,15 @@ document.body.addEventListener("click", (event) => {
     const modalWindow = make("div", "modal-window");
     modalBody.append(modalWindow);
 
-    if (event.target.classList.contains("card__claim")) {
+    if (event.target.classList.contains("card__button-claim")) {
       generateModalСlaims(claims);
     }
 
-
-    if (event.target.classList.contains("card__desk")) {
+    if (event.target.classList.contains("card__button-desk")) {
       getDesks(generateModalDesk);
     }
   }
 });
-
 
 function generateModalDesk(desksArray) {
   const modalWindow = document.querySelector(".modal-window");
@@ -51,12 +45,8 @@ function generateModalDesk(desksArray) {
   return;
 }
 
-
-// getDesks(generateModalDesk);
-
 function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
-
 
   const claimTitleElement = make("h1", "modal-window__title");
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
@@ -122,7 +112,6 @@ method может быть либо GET, либо POST и определяет, 
   return;
 }
 
-
 document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("modal-wrapper") ||
@@ -134,10 +123,33 @@ document.body.addEventListener("click", (event) => {
   }
 });
 
+function switchByDesk() {
+  const select = document.querySelector(".header__selection");
 
-// function switchByDesk() {
-//   const deskElement = document.querySelectorAll(".modal-window__element");
-//   console.log(deskElement);
-// }
-// switchByDesk();
-// generateModalСlaims(claims);
+  select.addEventListener("change", function (event) {
+    const sectionCard = document.querySelector(".cards");
+    sectionCard.innerHTML = "";
+
+    localStorage.removeItem("desk");
+    let json = "";
+
+    const deskName = event.target.value;
+    let arrayOfDesks = null;
+    const data = fetch("http://localhost:3000/desks")
+      .then((res) => res.json())
+      .then((res) => {
+        arrayOfDesks = res.data;
+
+        for (let desk of arrayOfDesks) {
+          if (desk.title === deskName) {
+            makeCards(desk);
+
+            json = JSON.stringify(desk);
+            localStorage.setItem("desk", json);
+          }
+        }
+      });
+  });
+}
+
+switchByDesk();

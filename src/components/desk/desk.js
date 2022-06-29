@@ -1,4 +1,4 @@
-// import { make } from "../../utils.js";
+import { make } from "../../utils.js";
 
 // fetch("http://localhost:3000/desks")
 //   .then((res) => res.json())
@@ -32,7 +32,6 @@
 //   wrapper.append(img);
 // }
 
-
 export function getDesks(yourFunction) {
   return fetch("http://localhost:3000/desks")
     .then((res) => res.json())
@@ -45,7 +44,6 @@ export function getDesks(yourFunction) {
       yourFunction(titles);
     });
 }
-
 
 // const wrapper = document.getElementById("pep");
 
@@ -80,3 +78,19 @@ export function getDesks(yourFunction) {
 // };
 
 // createInputWithButton();
+
+// Making list of Desks
+
+function generateListOfDesks(desksArray) {
+  const select = document.querySelector(".header__selection");
+
+  for (let deskName in desksArray) {
+    if (desksArray[deskName]) {
+      const option = make("option", "header__option");
+      option.innerHTML = `${desksArray[deskName]}`;
+      select.append(option);
+    } else continue;
+  }
+}
+
+getDesks(generateListOfDesks);
