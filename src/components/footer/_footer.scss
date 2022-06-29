@@ -1,0 +1,42 @@
+@use "sass:map";
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style-type: none;
+}
+
+.footer__legacy {
+  font-style: italic;
+  font-size: smaller;
+  text-align: center;
+}
+
+[data-tooltip] {
+  position: relative;
+  font-weight: 600;
+  color: map.get($colors, "colorMainBlack");
+
+  &::after {
+    content: attr(data-tooltip);
+    font-size: small;
+
+    position: absolute;
+    min-width: max-content;
+    left: 0;
+    top: 0;
+    color: map.get($colors, "colorMainBlack");
+    background: map.get($colors, "colorLightGray");
+    padding: 0.5em;
+    box-shadow: 2px 2px 5px map.get($colors, "colorDarkGray");
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.5s;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    top: 2em;
+  }
+}
