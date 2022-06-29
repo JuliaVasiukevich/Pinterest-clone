@@ -1,31 +1,37 @@
+
 import { make } from "../../utils.js";
 
-// fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
+// fetch("http://localhost:3000/desks")
+//   .then((res) => res.json())
+//   .then((res) => {
+
 //     const url = res.data[0].pictures[0].url;
 //     renderImage(url);
-// });
+//   });
 
-// const API_URL = 'http://localhost:3000'
-// const PICTURES_PREFIX = '/images/pictures/';
-// const AVATAR_PREFIX = '/images/avatars/';
+// const API_URL = "http://localhost:3000";
+// const PICTURES_PREFIX = "/images/pictures/";
+// const AVATAR_PREFIX = "/images/avatars/";
 
 // function renderImage(imageName) {
-//     const wrapper = document.getElementById('pep');
-//     const img = document.createElement('img');
-//     img.src = API_URL + PICTURES_PREFIX + imageName;
-//     wrapper.append(img);
+//   const wrapper = document.getElementById("pep");
+//   const img = document.createElement("img");
+//   img.src = API_URL + PICTURES_PREFIX + imageName;
+//   wrapper.append(img);
 // }
 
-// fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
+// fetch("http://localhost:3000/desks")
+//   .then((res) => res.json())
+//   .then((res) => {
 //     const url = res.data[0].pictures[0].author.avatar;
 //     renderAvatar(url);
-// });
+//   });
 
 // function renderAvatar(imageName) {
-//     const wrapper = document.getElementById('pep');
-//     const img = document.createElement('img');
-//     img.src = API_URL + AVATAR_PREFIX + imageName;
-//     wrapper.append(img);
+//   const wrapper = document.getElementById("pep");
+//   const img = document.createElement("img");
+//   img.src = API_URL + AVATAR_PREFIX + imageName;
+//   wrapper.append(img);
 // }
 
 export function getDesks(yourFunction) {
@@ -41,6 +47,7 @@ export function getDesks(yourFunction) {
     });
 }
 
+
 // const wrapper = document.getElementById('pep');
 
 // const createInputWithButton = () => {
@@ -51,27 +58,34 @@ export function getDesks(yourFunction) {
 
 //     button.addEventListener('click', () => {
 
-//         let newDesk = {
-//             title: input.value
-//         }
+// const createInputWithButton = () => {
+//   const input = make("input", "input__add");
+//   const button = make("button", "button__clear");
+//   button.textContent = "Add";
+//   input.placeholder = "Add desk";
 
-//         function addNewDesk(newDesk) {
-//             fetch('http://localhost:3000/desks', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(newDesk)
-//             });
-//         }
-//         addNewDesk(newDesk);
-//         input.value = '';
-//     });
+//   button.addEventListener("click", () => {
+//     let newDesk = {
+//       title: input.value,
+//     };
 
-//     wrapper.append(input);
-//     wrapper.append(button);
+//     function addNewDesk(newDesk) {
+//       fetch("http://localhost:3000/desks", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(newDesk),
+//       });
+//     }
+//     addNewDesk(newDesk);
+//     input.value = "";
+//   });
 
-//     return input;
+//   wrapper.append(input);
+//   wrapper.append(button);
+
+//   return input;
 // };
 
 // createInputWithButton();

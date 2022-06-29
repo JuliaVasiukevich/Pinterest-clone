@@ -1,33 +1,40 @@
-import { make } from "../../utils.js";
-import { getDesks } from "../desk/desk.js";
-import { claims } from "../../main.js";
-import { makeCards } from "../basic-card/basic-card.js";
+import {
+  make
+} from "../../utils.js";
+import {
+  getDesks
+} from "../desk/desk.js";
+import {
+  makeCards
+} from "../basic-card/basic-card.js";
 
-export function appearModalWindows() {
-  document.body.addEventListener("click", (event) => {
-    if (
-      event.target.classList.contains("card__claim") ||
-      event.target.classList.contains("card__desk")
-    ) {
-      const modalWrapper = make("div", "modal-wrapper");
-      document.body.append(modalWrapper);
+export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
-      const modalBody = make("div", "modal-body");
-      modalWrapper.append(modalBody);
+document.body.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("card__claim") ||
+    event.target.classList.contains("card__desk")
+  ) {
+    const modalWrapper = make("div", "modal-wrapper");
+    document.body.append(modalWrapper);
 
-      const modalWindow = make("div", "modal-window");
-      modalBody.append(modalWindow);
+    const modalBody = make("div", "modal-body");
+    modalWrapper.append(modalBody);
 
-      if (event.target.classList.contains("card__claim")) {
-        generateModalСlaims(claims);
-      }
+    const modalWindow = make("div", "modal-window");
+    modalBody.append(modalWindow);
 
-      if (event.target.classList.contains("card__desk")) {
-        getDesks(generateModalDesk);
-      }
+    if (event.target.classList.contains("card__claim")) {
+      generateModalСlaims(claims);
     }
-  });
-}
+
+
+    if (event.target.classList.contains("card__desk")) {
+      getDesks(generateModalDesk);
+    }
+  }
+});
+
 
 function generateModalDesk(desksArray) {
   const modalWindow = document.querySelector(".modal-window");
@@ -44,8 +51,12 @@ function generateModalDesk(desksArray) {
   return;
 }
 
+
+// getDesks(generateModalDesk);
+
 function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
+
 
   const claimTitleElement = make("h1", "modal-window__title");
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
@@ -111,25 +122,22 @@ method может быть либо GET, либо POST и определяет, 
   return;
 }
 
-appearModalWindows();
 
-export function disappearModalWindows() {
-  document.body.addEventListener("click", (event) => {
-    if (
-      event.target.classList.contains("modal-wrapper") ||
-      event.target.classList.contains("modal-close") ||
-      event.target.classList.contains("modal-body")
-    ) {
-      const modalWrapper = document.querySelector(".modal-wrapper");
-      modalWrapper.remove();
-    }
-  });
-}
+document.body.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("modal-wrapper") ||
+    event.target.classList.contains("modal-close") ||
+    event.target.classList.contains("modal-body")
+  ) {
+    const modalWrapper = document.querySelector(".modal-wrapper");
+    modalWrapper.remove();
+  }
+});
 
-disappearModalWindows();
 
 // function switchByDesk() {
 //   const deskElement = document.querySelectorAll(".modal-window__element");
 //   console.log(deskElement);
 // }
 // switchByDesk();
+// generateModalСlaims(claims);
