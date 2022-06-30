@@ -54,7 +54,7 @@ export function getDesks(yourFunction) {
 //     button.textContent = 'Add';
 //     input.placeholder = 'Add desk';
 
-//     button.addEventListener('click', () => {
+
 
 // const createInputWithButton = () => {
 //   const input = make("input", "input__add");
