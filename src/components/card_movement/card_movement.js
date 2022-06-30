@@ -23,28 +23,28 @@ const modalWindow = document.querySelector(".modal-wrapper");
 const pictureID = modalWindow.getAttribute("data-img_id");
 
 /*methods*/
-function putMethodForCurrentDesk(deskID, currentDesk, pictureID) {
-  return fetch(`http://localhost:3000/desks/${deskID}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify(
-      currentDesk["pictures"].filter((element) => {
-        return element["_id"] !== pictureID;
-      })
-    ),
-  });
-}
+// function putMethodForCurrentDesk(deskID, currentDesk, pictureID) {
+//   return fetch(`http://localhost:3000/desks/${deskID}`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-type": "application/json; charset=UTF-8",
+//     },
+//     body: JSON.stringify(
+//       currentDesk["pictures"].filter((element) => {
+//         return element["_id"] !== pictureID;
+//       })
+//     ),
+//   });
+// }
 
-function putMethodForNextDesk(deskID, nextDesk, currentPicture) {
-  return fetch(`http://localhost:3000/desks/${deskID}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify(nextDesk["pictures"].push(currentPicture)),
-  });
+// function putMethodForNextDesk(deskID, nextDesk, currentPicture) {
+//   return fetch(`http://localhost:3000/desks/${deskID}`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-type": "application/json; charset=UTF-8",
+//     },
+//     body: JSON.stringify(nextDesk["pictures"].push(currentPicture)),
+//   });
 
 /*ОБРАБОТЧИК */
 modalWindow.addEventListener("click", (e) => {

@@ -132,15 +132,15 @@ document.body.addEventListener("click", (event) => {
   }
 });
 
-function switchByDesk() {
+// function switchByDesk() {
   const select = document.querySelector(".header__selection");
 
   select.addEventListener("change", function (event) {
-    const sectionCard = document.querySelector(".cards");
+    const sectionCard = document.querySelector(".desk");
     sectionCard.innerHTML = "";
 
-    localStorage.removeItem("desk");
-    let json = "";
+    // localStorage.removeItem("desk");
+    // let json = "";
 
     const deskName = event.target.value;
     let arrayOfDesks = null;
@@ -153,12 +153,12 @@ function switchByDesk() {
           if (desk.title === deskName) {
             makeCards(desk);
 
-            json = JSON.stringify(desk);
-            localStorage.setItem("desk", json);
+            // json = JSON.stringify(desk);
+            // localStorage.setItem("desk", json);
           }
         }
       });
   });
-}
+// }
 
-switchByDesk();
+// switchByDesk();
