@@ -7,13 +7,13 @@ a {
   text-decoration: none;
 }
 
-.cards {
-  display: grid;
-  margin: auto;
-  grid-template-columns: repeat(5, 1fr);
-  column-gap: 20px;
-  max-width: 100%;
-}
+// .cards {
+//   display: grid;
+//   margin: auto;
+//   grid-template-columns: repeat(5, 1fr);
+//   column-gap: 20px;
+//   max-width: 100%;
+// }
 
 .card {
   &__picture-box {

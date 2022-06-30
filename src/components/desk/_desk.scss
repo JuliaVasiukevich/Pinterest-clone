@@ -1,8 +1,18 @@
-@use "sass:map";
+.grid {
+  margin: 0 auto;
 
-.grid-item {
-  margin: 0;
-  padding: 0;
-  width: auto;
-  border: 1px solid map.get($colors, "colorMainBlack");
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  &-sizer,
+  &-item {
+    width: 20%;
+  }
+
+  &-item {
+    margin-bottom: 5px;
+  }
 }
