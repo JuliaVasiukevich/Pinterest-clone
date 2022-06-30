@@ -1,4 +1,3 @@
-
 import { make } from "../../utils.js";
 
 // fetch("http://localhost:3000/desks")
@@ -47,7 +46,6 @@ export function getDesks(yourFunction) {
     });
 }
 
-
 // const wrapper = document.getElementById('pep');
 
 // const createInputWithButton = () => {
@@ -72,9 +70,9 @@ export function getDesks(yourFunction) {
 //     function addNewDesk(newDesk) {
 //       fetch("http://localhost:3000/desks", {
 //         method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
+// headers: {
+//   "Content-Type": "application/json",
+// },
 //         body: JSON.stringify(newDesk),
 //       });
 //     }
@@ -108,9 +106,12 @@ getDesks(generateListOfDesks);
 
 // This part is responsible for grid layout
 
+var Masonry = require("masonry-layout");
 var elementMasonry = document.querySelector(".grid");
 
-var masonry = new Masonry(elementMasonry, {
+var msnry = new Masonry(elementMasonry, {
   itemSelector: ".grid-item",
-  columnWidth: 200,
+  percentPosition: true,
+  fitWidth: true,
+  gutter: 10,
 });

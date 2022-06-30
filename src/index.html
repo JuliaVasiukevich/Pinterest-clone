@@ -8,9 +8,10 @@
     <title>Pinterest-clone</title>
     <link rel="stylesheet" href="./styles/main.scss" />
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
-    <script defer src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
-    <!-- <script src="./components/desk/desk.js" type="module"></script> -->
-    <!-- <script src="./components/header/header.js" type="module"></script> -->
+    <script
+      defer
+      src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"
+    ></script>
     <script defer src="./main.js" type="module"></script>
   </head>
 
@@ -52,16 +53,12 @@
         <option disabled>Choose desk...</option>
       </select>
       <label class="theme">
-        <input type="checkbox" class='theme__checkbox'>
+        <input type="checkbox" class="theme__checkbox" />
         <span class="theme__span"></span>
       </label>
     </header>
-    <section class="desk container grid">
-      <div class="grid-item">1 Lorem ipsum dolor sit amet</div>
-      <div class="grid-item">2 Lorem ipsum dolor sit amet</div>
-      <div class="grid-item">3 Lorem ipsum dolor sit amet</div>
-      <div class="grid-item">4 Lorem ipsum dolor sit amet</div>
-      <div class="grid-item">5 Lorem ipsum dolor sit amet</div>
+    <section class="desk container">
+      <div class="grid"></div>
     </section>
     <footer class="footer container">
       <hr />
@@ -106,6 +103,5 @@
         ©2022 TeachMeSkills | All Rights (not) Reserved
       </p>
     </footer>
-
   </body>
 </html>
