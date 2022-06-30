@@ -64,9 +64,6 @@ const cardsInfo = {
 };
 
 export function makeCards(data) {
-  // const cards = make("section", ["cards", "grid"]);
-  // document.body.append(cards);
-
   const cards = document.querySelector(".grid");
 
   for (let item of data["pictures"]) {
