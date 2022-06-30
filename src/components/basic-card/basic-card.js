@@ -69,12 +69,15 @@ if (localStorage.length > 0) {
 }
 
 export function makeCards(data) {
-  const cards = make("section", "cards");
-  document.body.append(cards);
+  const cards = document.querySelector(".grid");
+
+  const API_URL = "http://localhost:3000";
+  const PICTURES_PREFIX = "/images/pictures/";
+  const AVATAR_PREFIX = "/images/avatars/";
 
   for (let item of data["pictures"]) {
-    const card = make("div", "card");
-    cards.prepend(card);
+    const card = make("div", ["card", "grid-item"]);
+    cards.append(card);
 
     const pictureBox = make("div", "card__picture-box");
     card.append(pictureBox);
@@ -83,10 +86,11 @@ export function makeCards(data) {
       src: `${item["url"]}`,
       alt: "picture",
     });
+
     cardImage.setAttribute("data-img_id", `${item.id}`); //привязка к ID для дальнейшей работы с модальным окном
 
     const cardOverlay = make("div", "card__overlay");
-    cardOverlay.style.backgroundColor = `url(${item["url"]})`;
+    cardOverlay.style.backgroundColor = `url(${API_URL}${PICTURES_PREFIX}${item["url"]})`;
     pictureBox.append(cardImage, cardOverlay);
 
     const buttonAddCardOnDesk = make("button", [
@@ -112,7 +116,7 @@ export function makeCards(data) {
 
     if (item.author.avatar) {
       const avatarImage = make("img", "description__avatar-img", {
-        src: `${item.author.avatar}`,
+        src: `${API_URL}${AVATAR_PREFIX}${item.author.avatar}`,
         alt: "avatar",
       });
       descriptionBlock.append(avatarImage);
@@ -127,6 +131,7 @@ export function makeCards(data) {
 
     const desctiptionText = make("div", "description__text");
     desctiptionText.textContent = `${item["description"]}`;
+
     desctiptionText.setAttribute("data-img_id", `${item.id}`);
 
     descriptionBlock.append(desctiptionText);
