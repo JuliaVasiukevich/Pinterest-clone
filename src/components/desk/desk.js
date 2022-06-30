@@ -3,6 +3,7 @@ import { make } from "../../utils.js";
 // fetch("http://localhost:3000/desks")
 //   .then((res) => res.json())
 //   .then((res) => {
+
 //     const url = res.data[0].pictures[0].url;
 //     renderImage(url);
 //   });
@@ -45,7 +46,9 @@ export function getDesks(yourFunction) {
     });
 }
 
+
 // const wrapper = document.getElementById("pep");
+
 
 // const createInputWithButton = () => {
 //   const input = make("input", "input__add");
@@ -61,9 +64,9 @@ export function getDesks(yourFunction) {
 //     function addNewDesk(newDesk) {
 //       fetch("http://localhost:3000/desks", {
 //         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
 //         body: JSON.stringify(newDesk),
 //       });
 //     }
@@ -94,3 +97,12 @@ function generateListOfDesks(desksArray) {
 }
 
 getDesks(generateListOfDesks);
+
+// This part is responsible for grid layout
+
+var elementMasonry = document.querySelector(".grid");
+
+var masonry = new Masonry(elementMasonry, {
+  itemSelector: ".grid-item",
+  columnWidth: 200,
+});

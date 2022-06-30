@@ -3,7 +3,11 @@
 body {
   font-size: $base-font-size;
   font-family: "Roboto", sans-serif;
-  color: map.get($colors, "colorMainBlack");
+  transition: 1s;
+  @include themify($themes) {
+    color: themed('colorMainBlack');  
+    background-color: themed('colorMainWhite');  
+  }
 }
 
 .container {

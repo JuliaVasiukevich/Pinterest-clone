@@ -4,7 +4,9 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: map.get($colors, "colorBackgroundModalWindow");
+  @include themify($themes) {
+    background-color: themed("colorBackgroundModalWindow");
+  }
   top: 0;
   left: 0;
   overflow-y: auto;
@@ -25,10 +27,12 @@
 
 .modal-window {
   padding: 15px;
-  background-color: map.get($colors, "colorMainWhite");
+  @include themify($themes) {
+    background-color: themed("colorMainModalWrapper");
+    border: 1.5px solid themed("colorMainBlack");
+    box-shadow: 0 0 10px themed("colorMainBlack");
+  }
   border-radius: 10px;
-  border: 1.5px solid map.get($colors, "colorMainBlack");
-  box-shadow: 0 0 10px map.get($colors, "colorMainBlack");
 
   &__title {
     text-align: center;
@@ -41,12 +45,16 @@
 
     &:focus,
     &:hover {
-      color: map.get($colors, "colorLightRed");
+      @include themify($themes) {
+        color: themed("colorLightRed");
+      }
       font-weight: bold;
     }
 
     &:active {
-      color: map.get($colors, "colorMainRed");
+      @include themify($themes) {
+        color: themed("colorMainRed");
+      }
     }
   }
 
@@ -68,11 +76,10 @@
     justify-content: end;
     margin-left: 150px;
   }
-
+  
   &__button {
     padding: 5px 15px;
     margin: 0 5px;
-    border: 1px solid map.get($colors, "colorMainWhite");
     border-radius: 50px;
     font-weight: 600;
     color: #444;
@@ -85,5 +92,26 @@
     background-color: map.get($colors, "colorLightRed");
     color: map.get($colors, "colorMainWhite");
     border: 1px solid map.get($colors, "colorLightRed");
+  }
+
+  &__loading {
+    @include themify($themes) {
+      color: themed("colorMainRed");
+      border: 5px solid themed("colorLightGray");
+      border-top: 5px solid themed("colorLightRed");
+    }
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

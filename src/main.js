@@ -1,7 +1,8 @@
 // import { getDesks } from "./components/desk/desk.js";
 
 import { makeCards } from "./components/basic-card/basic-card.js";
-
+import {header} from "./components/header/header.js";
+import { generateModalDesk } from "./components/modal-windows/modal-windows";
 import { appearModalWindows } from "./components/modal-windows/modal-windows";
 import { disappearModalWindows } from "./components/modal-windows/modal-windows";
 
