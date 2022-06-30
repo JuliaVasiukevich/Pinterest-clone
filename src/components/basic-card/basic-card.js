@@ -65,15 +65,10 @@ let cardsInfo = {
 //   cardsInfo = JSON.parse(json);
 // }
 
-const cards = document.querySelector('.desk')
+// const cards = document.querySelector('.desk')
 
 export function makeCards(data) {
   const cards = document.querySelector(".grid");
-
-
-//  for (let item of data["pictures"]) {
-//    const card = make("div", ["card", "grid-item"]);
-//    cards.prepend(card);
 
   console.log(data);
   const API_URL = "http://localhost:3000";

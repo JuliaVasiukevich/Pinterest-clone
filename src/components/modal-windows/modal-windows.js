@@ -136,7 +136,7 @@ document.body.addEventListener("click", (event) => {
   const select = document.querySelector(".header__selection");
 
   select.addEventListener("change", function (event) {
-    const sectionCard = document.querySelector(".desk");
+    const sectionCard = document.querySelector(".grid");
     sectionCard.innerHTML = "";
 
     // localStorage.removeItem("desk");
