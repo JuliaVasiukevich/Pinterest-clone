@@ -9,4 +9,3 @@ import { disappearModalWindows } from "./components/modal-windows/modal-windows"
 fetch("http://localhost:3000/desks")
   .then((res) => res.json())
   .then((res) => console.log(res));
-
