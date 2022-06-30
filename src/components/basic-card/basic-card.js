@@ -1,7 +1,7 @@
 import { make } from "../../utils.js";
 import { makeRandomColor } from "../../utils.js";
 
-const cardsInfo = {
+let cardsInfo = {
   title: "Desk 1",
   pictures: [
     {
@@ -63,6 +63,11 @@ const cardsInfo = {
   ],
 };
 
+if (localStorage.length > 0) {
+  let json = localStorage.getItem("desk");
+  cardsInfo = JSON.parse(json);
+}
+
 export function makeCards(data) {
   const cards = document.querySelector(".grid");
 
@@ -81,7 +86,8 @@ export function makeCards(data) {
       src: `${item["url"]}`,
       alt: "picture",
     });
-    cardImage.setAttribute("dataid", `${item.id}`); //привязка к ID для дальнейшей работы с модальным окном
+
+    cardImage.setAttribute("data-img_id", `${item.id}`); //привязка к ID для дальнейшей работы с модальным окном
 
     const cardOverlay = make("div", "card__overlay");
     cardOverlay.style.backgroundColor = `url(${API_URL}${PICTURES_PREFIX}${item["url"]})`;
@@ -125,7 +131,8 @@ export function makeCards(data) {
 
     const desctiptionText = make("div", "description__text");
     desctiptionText.textContent = `${item["description"]}`;
-    desctiptionText.setAttribute("dataid", `${item.id}`);
+
+    desctiptionText.setAttribute("data-img_id", `${item.id}`);
 
     descriptionBlock.append(desctiptionText);
   }

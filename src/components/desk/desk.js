@@ -1,4 +1,3 @@
-
 import { make } from "../../utils.js";
 
 // fetch("http://localhost:3000/desks")
@@ -48,15 +47,8 @@ export function getDesks(yourFunction) {
 }
 
 
-// const wrapper = document.getElementById('pep');
+// const wrapper = document.getElementById("pep");
 
-// const createInputWithButton = () => {
-//     const input = make("input", 'input__add');
-//     const button = make("button", "button__clear");
-//     button.textContent = 'Add';
-//     input.placeholder = 'Add desk';
-
-//     button.addEventListener('click', () => {
 
 // const createInputWithButton = () => {
 //   const input = make("input", "input__add");
