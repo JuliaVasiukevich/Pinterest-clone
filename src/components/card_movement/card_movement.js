@@ -16,98 +16,101 @@
 // })
 //   .then((res) => res.json())
 //   .then((res) => console.log(res));
-s
+
 export { modalWindow, putMethodForCurrentDesk, putMethodForNextDesk };
 
-const modalWindow = document.querySelector(".modal-wrapper");
+const modalWindow = document.querySelector(".modal-window");
 const pictureID = modalWindow.getAttribute("data-img_id");
 
 /*methods*/
-// function putMethodForCurrentDesk(deskID, currentDesk, pictureID) {
-//   return fetch(`http://localhost:3000/desks/${deskID}`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-type": "application/json; charset=UTF-8",
-//     },
-//     body: JSON.stringify(
-//       currentDesk["pictures"].filter((element) => {
-//         return element["_id"] !== pictureID;
-//       })
-//     ),
-//   });
-// }
+function putMethodForCurrentDesk(deskID, currentDesk, pictureID) {
+  return fetch(`http://localhost:3000/desks/${deskID}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(
+      currentDesk["pictures"].filter((element) => {
+        return element["_id"] !== pictureID;
+      })
+    ),
+  });
+}
 
-// function putMethodForNextDesk(deskID, nextDesk, currentPicture) {
-//   return fetch(`http://localhost:3000/desks/${deskID}`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-type": "application/json; charset=UTF-8",
-//     },
-//     body: JSON.stringify(nextDesk["pictures"].push(currentPicture)),
-//   });
+function putMethodForNextDesk(deskID, nextDesk, currentPicture) {
+  return fetch(`http://localhost:3000/desks/${deskID}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(nextDesk["pictures"].push(currentPicture)),
+  });
+}
 
 /*ОБРАБОТЧИК */
 modalWindow.addEventListener("click", (e) => {
-  let arrayOfDesks = null;
-  let currentDesk = null;
-  let currentPicture = null;
-  const nextDesk = null;
+  console.log(1)
+  // let arrayOfDesks = null;
+  // let currentDesk = null;
+  // let currentPicture = null;
+  // const nextDesk = null;
+  // console.log(1);
 
-  fetch("http://localhost:3000/desks")
-    .then((res) => res.json())
-    .then((res) => {
-      arrayOfDesks = res.data;
-      console.log(arrayOfDesks);
-    });
+  // fetch("http://localhost:3000/desks")
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     arrayOfDesks = res.data;
+  //     console.log(1);
+  //   });
 
-  for (const desk of arrayOfDesks) {
-    if (
-      desk["pictures"].find((element) => {
-        element["_id"] == pictureID;
-      })
-    ) {
-      currentDesk = desk;
-      // break
-    }
-  }
+  // for (const desk of arrayOfDesks) {
+  //   if (
+  //     desk["pictures"].find((element) => {
+  //       element["_id"] == pictureID;
+  //     })
+  //   ) {
+  //     currentDesk = desk;
+  //     // break
+  //   }
+  // }
 
-  let currentDeskID = currentDesk["_id"];
+  // let currentDeskID = currentDesk["_id"];
 
-  // Ищет текущий !объект! картинки
-  currentPicture = currentDesk["pictures"].find((element) => {
-    element["_id"] === pictureID;
-  });
+  // // Ищет текущий !объект! картинки
+  // currentPicture = currentDesk["pictures"].find((element) => {
+  //   element["_id"] === pictureID;
+  // });
 
-  //итого у меня есть текущая доска, у меня есть нужная картинка
+  // //итого у меня есть текущая доска, у меня есть нужная картинка
 
-  if (e.target.tagName === "P") {
-    const deskTitle = e.target.textContent;
+  // if (e.target.tagName === "P") {
+  //   const deskTitle = e.target.textContent;
 
-    for (const desk of arrayOfDesks) {
-      if (desk["title"] === deskTitle) {
-        nextDesk = desk;
-        // break
-      } else {
-        return;
-      }
-    }
-    let nextDeskID = nextDesk["_id"];
+  //   for (const desk of arrayOfDesks) {
+  //     if (desk["title"] === deskTitle) {
+  //       nextDesk = desk;
+  //       // break
+  //     } else {
+  //       return;
+  //     }
+  //   }
+  //   let nextDeskID = nextDesk["_id"];
 
-    putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID); // изменили в текущей доске
-    putMethodForNextDesk(nextDesk, currentPicture); // добавили в следующую
+  //   putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID); // изменили в текущей доске
+  //   putMethodForNextDesk(nextDesk, currentPicture); // добавили в следующую
 
-    // render() зАБРАТЬ ИЗ UTIlS
+  //   // render() зАБРАТЬ ИЗ UTIlS
     
-  } else if (e.target.value === "Send") {
-    const archiveDesk = arrayOfDesks.find(
-      (element) => element["title"] === "archived"
-    );
-    let archiveDeskID = archiveDesk["_id"];
-    putMethodForCurrentDesk(deskID, currentDesk, pictureID);
-    putMethodForNextDesk(archiveDeskID, archiveDesk, currentPicture);
+  // } else if (e.target.value === "Send") {
+  //   const archiveDesk = arrayOfDesks.find(
+  //     (element) => element["title"] === "archived"
+  //   );
+  //   let archiveDeskID = archiveDesk["_id"];
+  //   putMethodForCurrentDesk(deskID, currentDesk, pictureID);
+  //   putMethodForNextDesk(archiveDeskID, archiveDesk, currentPicture);
 
-    // render() зАБРАТЬ ИЗ UTIlS
+  //   // render() зАБРАТЬ ИЗ UTIlS
 
-  }
+  // }
 })
 
