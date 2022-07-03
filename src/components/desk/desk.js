@@ -106,12 +106,19 @@ getDesks(generateListOfDesks);
 
 // This part is responsible for grid layout
 
-var Masonry = require("masonry-layout");
-var elementMasonry = document.querySelector(".grid");
+// var Masonry = require("masonry-layout");
+// var elem = document.querySelector('.grid');
+// var msnry = new Masonry( elem, {
+//   // options
+//   itemSelector: '.grid-item',
+//   columnWidth: 200
+// });
+// var elementMasonry = document.querySelector(".grid");
 
-var msnry = new Masonry(elementMasonry, {
-  itemSelector: ".grid-item",
-  percentPosition: true,
-  fitWidth: true,
-  gutter: 10,
-});
+// var msnry = new Masonry(elementMasonry, {
+//   itemSelector: ".grid-item",
+//   columnWidth: 200,
+//   // percentPosition: true,
+//   // fitWidth: true,
+//   // gutter: 10,
+// });
