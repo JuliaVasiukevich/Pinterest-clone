@@ -54,8 +54,6 @@ export function getDesks(yourFunction) {
 //     button.textContent = 'Add';
 //     input.placeholder = 'Add desk';
 
-
-
 // const createInputWithButton = () => {
 //   const input = make("input", "input__add");
 //   const button = make("button", "button__clear");
@@ -98,6 +96,20 @@ function generateListOfDesks(desksArray) {
       const option = make("option", "header__option");
       option.innerHTML = `${desksArray[deskName]}`;
       select.append(option);
+
+      if (localStorage.length > 1) {
+        let json = localStorage.getItem("desk");
+        let deskAfterReboot = JSON.parse(json);
+
+        let titleDeskAfterReboot = deskAfterReboot.title;
+        const options = document.querySelectorAll(".header__option");
+
+        for (let option of options) {
+          if (option.textContent === titleDeskAfterReboot) {
+            option.setAttribute("selected", "");
+          }
+        }
+      }
     } else continue;
   }
 }
