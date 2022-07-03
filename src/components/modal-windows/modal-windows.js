@@ -8,7 +8,17 @@ import {
   makeCards
 } from "../basic-card/basic-card.js";
 
-export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
+export const claims = [
+  "Spam",
+  "Nudity or pornography",
+  "Self-harm",
+  "Misinformation",
+  "Hateful activities",
+  "Dangerous goods",
+  "Harassment or privacy violations",
+  "Graphic violence",
+  "My intellectual property",
+];
 
 document.body.addEventListener("click", (event) => {
   if (
@@ -30,9 +40,7 @@ document.body.addEventListener("click", (event) => {
       generateModalСlaims(claims);
     }
 
-
     if (event.target.classList.contains("card__button-desk")) {
-
       let loading = make("div", "modal-window__loading");
       modalWindow.append(loading);
       getDesks(generateModalDesk);
@@ -60,11 +68,11 @@ function generateModalDesk(desksArray) {
 function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
 
-
-
   const claimTitleElement = make("h2", "modal-window__title");
 
-  claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
+
+  claimTitleElement.innerHTML = `Report pin`;
+
   modalWindow.append(claimTitleElement);
 
   const form = make("form", "modal-window__form");
@@ -138,18 +146,20 @@ document.body.addEventListener("click", (event) => {
   }
 });
 
-// function switchByDesk() {
+
 const select = document.querySelector(".header__selection");
 
 select.addEventListener("change", function (event) {
   const sectionCard = document.querySelector(".grid");
   sectionCard.innerHTML = "";
 
-  // localStorage.removeItem("desk");
-  // let json = "";
+
+  localStorage.removeItem("desk");
+  let json = "";
 
   const deskName = event.target.value;
-  let arrayOfDesks = null;
+  let arrayOfDesks;
+
   const data = fetch("http://localhost:3000/desks")
     .then((res) => res.json())
     .then((res) => {
@@ -158,6 +168,7 @@ select.addEventListener("change", function (event) {
       for (let desk of arrayOfDesks) {
         if (desk.title === deskName) {
           makeCards(desk);
+
 
           // json = JSON.stringify(desk);
           // localStorage.setItem("desk", json);
