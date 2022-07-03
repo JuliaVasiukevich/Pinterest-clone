@@ -89,6 +89,21 @@ export function makeCards(data) {
     desctiptionText.setAttribute("data-img_id", `${item.id}`);
 
     descriptionBlock.append(desctiptionText);
+
+    cardImage.onload = () => {
+      var Masonry = require("masonry-layout");
+      var elem = document.querySelector('.grid');
+      var msnry = new Masonry(elem, {
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 200,
+        percentPosition: true,
+        fitWidth: true,
+        gutter: 10,
+        // columnWidth: '.grid-sizer',
+        percentPosition: true
+      });
+    }
   }
   return cards;
 }
