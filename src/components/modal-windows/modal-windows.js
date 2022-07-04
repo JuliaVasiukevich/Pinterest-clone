@@ -8,6 +8,7 @@ import {
 import {
   makeCards
 } from "../basic-card/basic-card.js";
+import { modalWindowOpening } from "../card_movement/card_movement.js";
 
 export const claims = [
   "Spam",
@@ -131,7 +132,7 @@ method может быть либо GET, либо POST и определяет, 
         if (radio.checked) {
           event.preventDefault()
           let msg = {
-            img: 1,
+            img: pictureID,
             massage: radio.value,
           }
           fetch("http://localhost:3000/telegram", {

@@ -61,7 +61,6 @@ function modalWindowOpening() {
       arrayOfDesks = Array.from(arrayOfDesks);
 
       for (const desk of arrayOfDesks) {
-        // сори. здесь начинаются тупые названия, почему-то все в одной строчке или в условии if это не обрабатывалось
         let deskNow = desk["pictures"];
         let deskHaveObj = deskNow.filter((e) => e["_id"] == pictureID);
         let LengthDesk = deskHaveObj.length;
@@ -81,9 +80,6 @@ function modalWindowOpening() {
 
       if (e.target.tagName === "P") {
         const deskTitle = e.target.textContent;
-        console.log(arrayOfDesks);
-
-        console.log(deskTitle);
 
         for (const desk of arrayOfDesks) {
           let check = desk["title"] === deskTitle;
@@ -94,16 +90,14 @@ function modalWindowOpening() {
         }
 
         let nextDeskID = nextDesk["_id"];
-        console.log(nextDesk);
 
         putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID); // изменили в текущей доске
-        putMethodForNextDesk(nextDesk, currentPicture); // добавили в следующую
+        putMethodForNextDesk(nextDeskID, nextDesk, currentPicture); // добавили в следующую
         removeModalWindow(currentDesk);
       } else if (e.target.value === "Send") {
         let archiveDesk = arrayOfDesks.find(
           (element) => element["title"] === "archived"
         );
-        let archiveDeskID = archiveDesk["_id"];
 
         putMethodForCurrentDesk(deskID, currentDesk, pictureID);
         putMethodForNextDesk(archiveDeskID, archiveDesk, currentPicture);

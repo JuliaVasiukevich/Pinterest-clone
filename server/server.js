@@ -90,20 +90,15 @@ app.listen(port, () => {
 // var collection = db.collection('desks');
 
 // var db = require("./db");
-app.put("/desks/:id", function (req, res) {
-  db.collection("desks").update(
-    { _id: ObjectID(req.params.id) },
-    { $set: { name: req.body.name } },
-    {
-      upsert: false,
-      multi: false,
-    },
+app.put("/desks/:id", jsonParser, function (req, res) {
+  const newImages = req.body.map(img => img._id)
+  deskModel.findByIdAndUpdate(req.params.id, {pictures: newImages},
     function (err, result) {
       if (err) {
         console.log(err);
         return res.sendStatus(500);
       }
-      res.sendStatus(200);
+      res.json(result);
    });
  });
 
@@ -153,6 +148,7 @@ function sendMsg(req, res) {
   // каждый элемент обьекта запихиваем в массив
   let fields = [
     '<b>Name</b>: ' + reqBody.massage,
+    '<b>IMG</b>: ' + reqBody.img,
     reqBody.text
   ]
   let msg = ''
