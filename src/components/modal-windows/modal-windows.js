@@ -1,4 +1,3 @@
-
 import {
   make
 } from "../../utils.js";
@@ -8,7 +7,9 @@ import {
 import {
   makeCards
 } from "../basic-card/basic-card.js";
-import { modalWindowOpening } from "../card_movement/card_movement.js";
+import {
+  modalWindowOpening
+} from "../card_movement/card_movement.js";
 
 export const claims = [
   "Spam",
@@ -37,6 +38,7 @@ document.body.addEventListener("click", (event) => {
 
     const modalWindow = make("div", "modal-window");
     modalBody.append(modalWindow);
+    modalWindowOpening();
 
     if (event.target.classList.contains("card__button-claim")) {
       generateModalСlaims(claims);
@@ -48,7 +50,6 @@ document.body.addEventListener("click", (event) => {
       getDesks(generateModalDesk);
     }
   }
-  modalWindowOpening();
 });
 
 function generateModalDesk(desksArray) {
@@ -79,7 +80,7 @@ function generateModalСlaims(claimsArray) {
 
   modalWindow.append(claimTitleElement);
 
-  const form = make("form", "modal-window__form",{
+  const form = make("form", "modal-window__form", {
     enctype: "multipart/form-data"
   });
   modalWindow.append(form);
@@ -126,22 +127,21 @@ method может быть либо GET, либо POST и определяет, 
   });
 
   claimButtonSend.addEventListener("click", (event) => {
-      const radios = document.querySelectorAll(".modal-window__radio");
+    const radios = document.querySelectorAll(".modal-window__radio");
 
-      for (let radio of radios) {
-        if (radio.checked) {
-          event.preventDefault()
-          let msg = {
-            img: pictureID,
-            massage: radio.value,
-          }
-          fetch("http://localhost:3000/telegram", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(msg),
-          })
+    for (let radio of radios) {
+      if (radio.checked) {
+        event.preventDefault()
+        let msg = {
+          massage: radio.value,
+        }
+        fetch("http://localhost:3000/telegram", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(msg),
+        })
 
       } else {
         event.preventDefault();
@@ -150,7 +150,7 @@ method может быть либо GET, либо POST и определяет, 
     }
   });
 
-return;
+  return;
 }
 
 document.body.addEventListener("click", (event) => {
@@ -203,20 +203,3 @@ select.addEventListener("change", function (event) {
       });
     })
 });
-// }
-
-// switchByDesk();
-
-function toJSONString(form) {
-  var obj = {}
-  var elements = form.querySelectorAll('input')
-  for (var i = 0; i < elements.length; ++i) {
-    var element = elements[i]
-    var name = element.name
-    var value = element.value
-    if (name) {
-      obj[name] = value
-    }
-  }
-  return JSON.stringify(obj)
-}

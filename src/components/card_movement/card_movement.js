@@ -38,6 +38,7 @@ function modalWindowOpening() {
       },
       body: JSON.stringify(newArrayPictures),
     });
+
   }
 
   function removeModalWindow(desk) {
@@ -99,8 +100,8 @@ function modalWindowOpening() {
           (element) => element["title"] === "archived"
         );
 
-        putMethodForCurrentDesk(deskID, currentDesk, pictureID);
-        putMethodForNextDesk(archiveDeskID, archiveDesk, currentPicture);
+        putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID);
+        putMethodForNextDesk("62b6cdf529b60bb10c244fce", archiveDesk, currentPicture);
 
         removeModalWindow(currentDesk);
       }

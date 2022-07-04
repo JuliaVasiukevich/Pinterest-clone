@@ -48,6 +48,7 @@ function searchCards(keyword) {
   let json = localStorage.getItem("desk");
   let currentDeskId = JSON.parse(json)["_id"];
   let currentDeskTitle = JSON.parse(json)["title"];
+  console.log(currentDeskId);
   let arrayOfFoundCards = [
     {
       pictures: [],
