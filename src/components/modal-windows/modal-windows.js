@@ -1,9 +1,25 @@
-import { make } from "../../utils.js";
-import { getDesks } from "../desk/desk.js";
-import { makeCards } from "../basic-card/basic-card.js";
-import { modalWindowOpening } from "../card_movement/card_movement.js";
 
-export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
+import {
+  make
+} from "../../utils.js";
+import {
+  getDesks
+} from "../desk/desk.js";
+import {
+  makeCards
+} from "../basic-card/basic-card.js";
+
+export const claims = [
+  "Spam",
+  "Nudity or pornography",
+  "Self-harm",
+  "Misinformation",
+  "Hateful activities",
+  "Dangerous goods",
+  "Harassment or privacy violations",
+  "Graphic violence",
+  "My intellectual property",
+];
 
 document.body.addEventListener("click", (event) => {
   if (
@@ -56,10 +72,15 @@ function generateModalСlaims(claimsArray) {
 
   const claimTitleElement = make("h2", "modal-window__title");
 
-  claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
+
+
+  claimTitleElement.innerHTML = `Report pin`;
+
   modalWindow.append(claimTitleElement);
 
-  const form = make("form", "modal-window__form");
+  const form = make("form", "modal-window__form",{
+    enctype: "multipart/form-data"
+  });
   modalWindow.append(form);
   /*Два атрибута HTML необходимы:
 action содержит адрес, который определяет, куда будет отправлена информация формы;
@@ -104,11 +125,23 @@ method может быть либо GET, либо POST и определяет, 
   });
 
   claimButtonSend.addEventListener("click", (event) => {
-    const radios = document.querySelectorAll(".modal-window__radio");
+      const radios = document.querySelectorAll(".modal-window__radio");
 
-    for (let radio of radios) {
-      if (radio.checked) {
-        console.log("Отправляем на почту"); //TODO: add send by email
+      for (let radio of radios) {
+        if (radio.checked) {
+          event.preventDefault()
+          let msg = {
+            img: 1,
+            massage: radio.value,
+          }
+          fetch("http://localhost:3000/telegram", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(msg),
+          })
+
       } else {
         event.preventDefault();
         modalWrapper.remove();
@@ -116,7 +149,7 @@ method может быть либо GET, либо POST и определяет, 
     }
   });
 
-  return;
+return;
 }
 
 document.body.addEventListener("click", (event) => {
@@ -130,18 +163,20 @@ document.body.addEventListener("click", (event) => {
   }
 });
 
-// function switchByDesk() {
+
 const select = document.querySelector(".header__selection");
 
 select.addEventListener("change", function (event) {
   const sectionCard = document.querySelector(".grid");
   sectionCard.innerHTML = "";
 
-  // localStorage.removeItem("desk");
-  // let json = "";
+
+  localStorage.removeItem("desk");
+  let json = "";
 
   const deskName = event.target.value;
-  let arrayOfDesks = null;
+  let arrayOfDesks;
+
   const data = fetch("http://localhost:3000/desks")
     .then((res) => res.json())
     .then((res) => {
@@ -151,12 +186,36 @@ select.addEventListener("change", function (event) {
         if (desk.title === deskName) {
           makeCards(desk);
 
-          // json = JSON.stringify(desk);
-          // localStorage.setItem("desk", json);
+
+          json = JSON.stringify(desk);
+          localStorage.setItem("desk", json);
         }
       }
-    });
+    })
+    .then(() => {
+      var Masonry = require("masonry-layout");
+      var elem = document.querySelector('.grid');
+      var msnry = new Masonry(elem, {
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 200
+      });
+    })
 });
 // }
 
 // switchByDesk();
+
+function toJSONString(form) {
+  var obj = {}
+  var elements = form.querySelectorAll('input')
+  for (var i = 0; i < elements.length; ++i) {
+    var element = elements[i]
+    var name = element.name
+    var value = element.value
+    if (name) {
+      obj[name] = value
+    }
+  }
+  return JSON.stringify(obj)
+}

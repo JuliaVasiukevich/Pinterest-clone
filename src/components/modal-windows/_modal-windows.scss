@@ -13,11 +13,6 @@
   overflow-x: hidden;
 }
 
-.modal-wrapper-active {
-  top: -100%;
-  transition: all 0.8s ease 0s;
-}
-
 .modal-body {
   display: flex;
   justify-content: center;
@@ -76,7 +71,7 @@
     justify-content: end;
     margin-left: 150px;
   }
-  
+
   &__button {
     padding: 5px 15px;
     margin: 0 5px;

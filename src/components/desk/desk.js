@@ -96,6 +96,20 @@ function generateListOfDesks(desksArray) {
       const option = make("option", "header__option");
       option.innerHTML = `${desksArray[deskName]}`;
       select.append(option);
+
+      if (localStorage.length > 1) {
+        let json = localStorage.getItem("desk");
+        let deskAfterReboot = JSON.parse(json);
+
+        let titleDeskAfterReboot = deskAfterReboot.title;
+        const options = document.querySelectorAll(".header__option");
+
+        for (let option of options) {
+          if (option.textContent === titleDeskAfterReboot) {
+            option.setAttribute("selected", "");
+          }
+        }
+      }
     } else continue;
   }
 }
@@ -104,12 +118,19 @@ getDesks(generateListOfDesks);
 
 // This part is responsible for grid layout
 
-var Masonry = require("masonry-layout");
-var elementMasonry = document.querySelector(".grid");
+// var Masonry = require("masonry-layout");
+// var elem = document.querySelector('.grid');
+// var msnry = new Masonry( elem, {
+//   // options
+//   itemSelector: '.grid-item',
+//   columnWidth: 200
+// });
+// var elementMasonry = document.querySelector(".grid");
 
-var msnry = new Masonry(elementMasonry, {
-  itemSelector: ".grid-item",
-  percentPosition: true,
-  fitWidth: true,
-  gutter: 10,
-});
+// var msnry = new Masonry(elementMasonry, {
+//   itemSelector: ".grid-item",
+//   columnWidth: 200,
+//   // percentPosition: true,
+//   // fitWidth: true,
+//   // gutter: 10,
+// });

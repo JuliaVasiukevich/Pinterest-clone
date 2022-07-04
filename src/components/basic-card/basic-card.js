@@ -1,72 +1,24 @@
 import { make } from "../../utils.js";
 import { makeRandomColor } from "../../utils.js";
 
-let cardsInfo = {
-  title: "Desk 1",
-  pictures: [
-    {
-      author: {
-        avatar: "",
-        name: "Anna Julia",
-        id: 1,
-      },
-      description: "Some text ",
-      url: "https://jrnlst.ru/sites/default/files/covers/cover_6.jpg",
-      id: 1,
-    },
-    {
-      author: {
-        avatar:
-          "https://img5.cliparto.com/pic/xl/254123/6379578-surprise-woman-pop-art-avatar-character-icon.jpg",
-        name: "Anna",
-        id: 2,
-      },
-      description: "Some text ",
-      url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 2,
-    },
-    {
-      author: {
-        avatar:
-          "https://www.100maketov.ru/storage/low/58e3511e6e453263b9fb70a9",
-        name: "Julia",
-        id: 3,
-      },
-      description:
-        "Some long text  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo natus temporibus",
-      url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 3,
-    },
-    {
-      author: {
-        avatar:
-          "https://www.100maketov.ru/storage/low/58e3511e6e453263b9fb70a9",
-        name: "Julia",
-        id: 4,
-      },
-      description:
-        "Some long text  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo natus temporibus",
-      url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 4,
-    },
-    {
-      author: {
-        avatar: "https://klike.net/uploads/posts/2019-03/1551511784_4.jpg",
-        name: "Julia",
-        id: 5,
-      },
-      description:
-        "Some long text  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo natus temporibus",
-      url: "https://i.pinimg.com/736x/02/43/33/024333d4c372ff4827db5b35353819f1.jpg",
-      id: 5,
-    },
-  ],
-};
 
-// if (localStorage.length > 0) {
-//   let json = localStorage.getItem("desk");
-//   cardsInfo = JSON.parse(json);
-// }
+let firstDesk;
+const data = fetch("http://localhost:3000/desks")
+  .then((res) => res.json())
+  .then((res) => {
+    firstDesk = res.data[0];
+
+    if (localStorage.length > 1) {
+      let json = localStorage.getItem("desk");
+      let deskAfterReboot = JSON.parse(json);
+
+      makeCards(deskAfterReboot);
+    } else {
+      makeCards(firstDesk);
+      json = JSON.stringify(firstDesk);
+      localStorage.setItem("desk", json);
+    }
+  });
 
 // const cards = document.querySelector('.desk')
 
@@ -138,6 +90,22 @@ export function makeCards(data) {
     desctiptionText.setAttribute("data-img_id", `${item.id}`);
 
     descriptionBlock.append(desctiptionText);
+
+
+    cardImage.onload = () => {
+      var Masonry = require("masonry-layout");
+      var elem = document.querySelector('.grid');
+      var msnry = new Masonry(elem, {
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 200,
+        percentPosition: true,
+        fitWidth: true,
+        gutter: 10,
+        // columnWidth: '.grid-sizer',
+        percentPosition: true
+      });
+    }
   }
   return cards;
 }
