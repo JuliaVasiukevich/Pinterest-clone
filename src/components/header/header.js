@@ -1,3 +1,4 @@
+import { makeCards } from "../basic-card/basic-card.js";
 export function header() {
   const theme = document.body.querySelector(".theme__checkbox");
   theme.addEventListener("click", () => {
@@ -28,8 +29,6 @@ function themed() {
     html.classList.remove("theme-dark");
   }
 }
-
-import { makeCards } from "../basic-card/basic-card.js";
 
 const search = document.querySelector(".header__searchbar");
 
