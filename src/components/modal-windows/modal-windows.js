@@ -75,7 +75,9 @@ function generateModalСlaims(claimsArray) {
 
   modalWindow.append(claimTitleElement);
 
-  const form = make("form", "modal-window__form");
+  const form = make("form", "modal-window__form",{
+    enctype: "multipart/form-data"
+  });
   modalWindow.append(form);
   /*Два атрибута HTML необходимы:
 action содержит адрес, который определяет, куда будет отправлена информация формы;
@@ -120,11 +122,23 @@ method может быть либо GET, либо POST и определяет, 
   });
 
   claimButtonSend.addEventListener("click", (event) => {
-    const radios = document.querySelectorAll(".modal-window__radio");
+      const radios = document.querySelectorAll(".modal-window__radio");
 
-    for (let radio of radios) {
-      if (radio.checked) {
-        console.log("Отправляем на почту"); //TODO: add send by email
+      for (let radio of radios) {
+        if (radio.checked) {
+          event.preventDefault()
+          let msg = {
+            img: 1,
+            massage: radio.value,
+          }
+          fetch("http://localhost:3000/telegram", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(msg),
+          })
+
       } else {
         event.preventDefault();
         modalWrapper.remove();
@@ -132,7 +146,7 @@ method может быть либо GET, либо POST и определяет, 
     }
   });
 
-  return;
+return;
 }
 
 document.body.addEventListener("click", (event) => {
@@ -170,8 +184,8 @@ select.addEventListener("change", function (event) {
           makeCards(desk);
 
 
-          // json = JSON.stringify(desk);
-          // localStorage.setItem("desk", json);
+          json = JSON.stringify(desk);
+          localStorage.setItem("desk", json);
         }
       }
     })
@@ -188,3 +202,17 @@ select.addEventListener("change", function (event) {
 // }
 
 // switchByDesk();
+
+function toJSONString(form) {
+  var obj = {}
+  var elements = form.querySelectorAll('input')
+  for (var i = 0; i < elements.length; ++i) {
+    var element = elements[i]
+    var name = element.name
+    var value = element.value
+    if (name) {
+      obj[name] = value
+    }
+  }
+  return JSON.stringify(obj)
+}
