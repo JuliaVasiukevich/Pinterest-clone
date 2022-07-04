@@ -14,20 +14,30 @@
 }
 
 .modal-body {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 30px 10px;
+
+  @include mobile {
+    padding: 15px 5px;
+  }
 }
 
 .modal-window {
-  padding: 15px;
+  padding: 20px 40px;
   @include themify($themes) {
     background-color: themed("colorMainModalWrapper");
     border: 1.5px solid themed("colorMainBlack");
     box-shadow: 0 0 10px themed("colorMainBlack");
   }
   border-radius: 10px;
+
+  @include mobile {
+    padding: 10px 20px;
+  }
 
   &__title {
     text-align: center;
@@ -55,21 +65,36 @@
 
   &__form {
     display: grid;
+    @include mobile {
+      font-size: rem(14px);
+    }
   }
 
   &__form > label {
     margin: 10px 0;
     cursor: pointer;
+
+    @include mobile {
+      margin: 5px 0;
+    }
   }
 
   &__form > label > input {
     margin-right: 10px;
+
+    @include mobile {
+      margin-right: 5px;
+    }
   }
 
   &__buttons {
     display: flex;
     justify-content: end;
     margin-left: 150px;
+
+    @include mobile {
+      margin-left: 50px;
+    }
   }
 
   &__button {
@@ -81,6 +106,10 @@
     background-color: map.get($colors, "colorMainWhite");
     box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
     cursor: pointer;
+
+    @include mobile {
+      font-size: rem(12px);
+    }
   }
 
   &__button-active {
