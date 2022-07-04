@@ -1,6 +1,7 @@
 import { make } from "../../utils.js";
 import { getDesks } from "../desk/desk.js";
 import { makeCards } from "../basic-card/basic-card.js";
+import { modalWindowOpening } from "../card_movement/card_movement.js";
 
 export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
@@ -24,14 +25,13 @@ document.body.addEventListener("click", (event) => {
       generateModalСlaims(claims);
     }
 
-
     if (event.target.classList.contains("card__button-desk")) {
-
       let loading = make("div", "modal-window__loading");
       modalWindow.append(loading);
       getDesks(generateModalDesk);
     }
   }
+  modalWindowOpening();
 });
 
 function generateModalDesk(desksArray) {
@@ -54,10 +54,8 @@ function generateModalDesk(desksArray) {
 function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
 
-
-
   const claimTitleElement = make("h2", "modal-window__title");
-  
+
   claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
   modalWindow.append(claimTitleElement);
 
@@ -133,32 +131,32 @@ document.body.addEventListener("click", (event) => {
 });
 
 // function switchByDesk() {
-  const select = document.querySelector(".header__selection");
+const select = document.querySelector(".header__selection");
 
-  select.addEventListener("change", function (event) {
-    const sectionCard = document.querySelector(".grid");
-    sectionCard.innerHTML = "";
+select.addEventListener("change", function (event) {
+  const sectionCard = document.querySelector(".grid");
+  sectionCard.innerHTML = "";
 
-    // localStorage.removeItem("desk");
-    // let json = "";
+  // localStorage.removeItem("desk");
+  // let json = "";
 
-    const deskName = event.target.value;
-    let arrayOfDesks = null;
-    const data = fetch("http://localhost:3000/desks")
-      .then((res) => res.json())
-      .then((res) => {
-        arrayOfDesks = res.data;
+  const deskName = event.target.value;
+  let arrayOfDesks = null;
+  const data = fetch("http://localhost:3000/desks")
+    .then((res) => res.json())
+    .then((res) => {
+      arrayOfDesks = res.data;
 
-        for (let desk of arrayOfDesks) {
-          if (desk.title === deskName) {
-            makeCards(desk);
+      for (let desk of arrayOfDesks) {
+        if (desk.title === deskName) {
+          makeCards(desk);
 
-            // json = JSON.stringify(desk);
-            // localStorage.setItem("desk", json);
-          }
+          // json = JSON.stringify(desk);
+          // localStorage.setItem("desk", json);
         }
-      });
-  });
+      }
+    });
+});
 // }
 
 // switchByDesk();
