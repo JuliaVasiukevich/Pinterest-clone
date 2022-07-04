@@ -1,3 +1,4 @@
+
 import {
   make
 } from "../../utils.js";
@@ -46,6 +47,7 @@ document.body.addEventListener("click", (event) => {
       getDesks(generateModalDesk);
     }
   }
+  modalWindowOpening();
 });
 
 function generateModalDesk(desksArray) {
@@ -69,6 +71,7 @@ function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
 
   const claimTitleElement = make("h2", "modal-window__title");
+
 
 
   claimTitleElement.innerHTML = `Report pin`;

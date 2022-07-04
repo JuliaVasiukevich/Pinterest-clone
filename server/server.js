@@ -82,18 +82,30 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-// app.put("/desks/:id", jsonParser, function (req, res) {
-//   db.collection("desks").update({
-//     _id: ObjectID(req.params.id)
-//   }, {
-//     $set: {
-//       name: req.body.name
-//     }
-//   }, {
-//     upsert: false,
-//     multi: false,
-//   });
-// });
+
+// var url = "/desks";
+
+// MongoClient.connect(url, function(err, db){
+
+// var collection = db.collection('desks');
+
+// var db = require("./db");
+app.put("/desks/:id", function (req, res) {
+  db.collection("desks").update(
+    { _id: ObjectID(req.params.id) },
+    { $set: { name: req.body.name } },
+    {
+      upsert: false,
+      multi: false,
+    },
+    function (err, result) {
+      if (err) {
+        console.log(err);
+        return res.sendStatus(500);
+      }
+      res.sendStatus(200);
+   });
+ });
 
 
 app.post("/telegram", jsonParser, function sendMsg(req, res) {

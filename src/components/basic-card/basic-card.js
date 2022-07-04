@@ -1,6 +1,7 @@
 import { make } from "../../utils.js";
 import { makeRandomColor } from "../../utils.js";
 
+
 let firstDesk;
 const data = fetch("http://localhost:3000/desks")
   .then((res) => res.json())
@@ -89,6 +90,7 @@ export function makeCards(data) {
     desctiptionText.setAttribute("data-img_id", `${item.id}`);
 
     descriptionBlock.append(desctiptionText);
+
 
     cardImage.onload = () => {
       var Masonry = require("masonry-layout");
