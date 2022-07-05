@@ -19,7 +19,7 @@ document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("card__button-claim") ||
     event.target.classList.contains("card__button-desk") ||
-    event.target.classList.contains("menu__contacts")
+    event.target.classList.contains("menu__team")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
     const pictureId = event.target.getAttribute("data-img_id");
@@ -43,7 +43,7 @@ document.body.addEventListener("click", (event) => {
       getDesks(generateModalDesk);
     }
 
-    if (event.target.classList.contains("menu__contacts")) {
+    if (event.target.classList.contains("menu__team")) {
       generateModalContacts();
     }
   }
@@ -179,7 +179,7 @@ function generateModalContacts() {
     contactElement.append(contactLink);
 
     let contactImage = make("img", "modal-window__contact-image", {
-      src: "../images/github-logo.png",
+      src: "../images/github-logo.svg",
       alt: "select",
     });
     contactLink.append(contactImage);
