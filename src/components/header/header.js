@@ -1,5 +1,4 @@
-import { makeCards } from "../basic-card/basic-card.js";
-import { make } from "../../utils.js";
+import { make, makeCards } from "../../utils.js";
 
 export function header() {
   const theme = document.body.querySelector(".theme__checkbox");
@@ -7,13 +6,11 @@ export function header() {
     themed();
   });
 
-  function save() {
-    localStorage.setItem("theme", theme.checked);
-  }
-
   let checked = JSON.parse(localStorage.getItem("theme"));
   theme.checked = checked;
-  window.addEventListener("change", save);
+  window.addEventListener("change", ()=>{
+    localStorage.setItem("theme", theme.checked)
+  });
 }
 
 header();
@@ -23,7 +20,6 @@ function themed() {
   const theme = document.body.querySelector(".theme__checkbox");
   const html = document.getElementById("pop");
   if (theme.checked) {
-    // html.classList.toggle("theme-light");
     html.classList.add("theme-dark");
     html.classList.remove("theme-light");
   } else {
@@ -63,7 +59,7 @@ export function clearDesk() {
 
 function searchCards(keyword) {
   let currentDeskId = getDeskIdFromLocalStorage();
-  let searchHashtag = "#" + keyword;
+  let searchHashtag = ("#" + keyword).toLowerCase();
   let arrayOfFoundCards = [
     {
       pictures: [],
@@ -71,7 +67,8 @@ function searchCards(keyword) {
   ];
 
   for (let card of arrayOfAllCards[currentDeskId]["pictures"]) {
-    if (card["description"].includes(searchHashtag)) {
+    const description =  (card["description"]).toLowerCase();
+    if (description.includes(searchHashtag)) {
       arrayOfFoundCards[0].pictures.push(card);
     }
   }
@@ -107,3 +104,30 @@ search.addEventListener("keydown", (event) => {
     search.value = "";
   }
 });
+
+
+export function generateListOfDesks(desksArray) {
+  const select = document.querySelector(".header__selection");
+
+  for (let deskName in desksArray) {
+      if (desksArray[deskName]) {
+          const option = make("option", "header__option");
+          option.innerHTML = `${desksArray[deskName]}`;
+          select.append(option);
+
+          if (localStorage.length > 1) {
+              let json = localStorage.getItem("desk");
+              let deskAfterReboot = JSON.parse(json);
+
+              let titleDeskAfterReboot = deskAfterReboot.title;
+              const options = document.querySelectorAll(".header__option");
+
+              for (let option of options) {
+                  if (option.textContent === titleDeskAfterReboot) {
+                      option.setAttribute("selected", "");
+                  }
+              }
+          }
+      } else continue;
+  }
+}

@@ -1,12 +1,10 @@
 import {
-  make
+  make,
+  makeCards
 } from "../../utils.js";
 import {
   getDesks
 } from "../desk/desk.js";
-import {
-  makeCards
-} from "../basic-card/basic-card.js";
 import {
   modalWindowOpening
 } from "../card_movement/card_movement.js";
@@ -17,7 +15,7 @@ import {
 
 
 
-export const claims = [
+const claims = [
   "Spam",
   "Nudity or pornography",
   "Self-harm",
@@ -33,12 +31,9 @@ document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("card__button-claim") ||
     event.target.classList.contains("card__button-desk") ||
-
-
     event.target.classList.contains("card__overlay") ||
     event.target.classList.contains("description__text") ||
-    event.target.classList.contains("menu__contacts")
-
+    event.target.classList.contains("menu__team")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
     const pictureId = event.target.getAttribute("data-img_id");
@@ -61,17 +56,14 @@ document.body.addEventListener("click", (event) => {
       getDesks(generateModalDesk);
     }
 
-
-
     if (
       event.target.classList.contains("card__overlay") ||
       event.target.classList.contains("description__text")
     ) {
-      generateCardModalWindow();
-      if (event.target.classList.contains("menu__contacts")) {
+      generateCardModalWindow();}
+      if (event.target.classList.contains("menu__team")) {
         generateModalContacts();
       }
-    }
     modalWindowOpening();
   }
 })
@@ -98,7 +90,6 @@ function generateModalСlaims(claimsArray) {
 
   const claimTitleElement = make("h2", "modal-window__title");
 
-
   claimTitleElement.innerHTML = `Report pin`;
 
   modalWindow.append(claimTitleElement);
@@ -107,9 +98,6 @@ function generateModalСlaims(claimsArray) {
     enctype: "multipart/form-data",
   });
   modalWindow.append(form);
-  /*Два атрибута HTML необходимы:
-action содержит адрес, который определяет, куда будет отправлена информация формы;
-method может быть либо GET, либо POST и определяет, как будет отправлена информация формы.*/
 
   for (let element of claimsArray) {
     let claimElement = make("label", "modal-window__form-element");
@@ -183,25 +171,14 @@ function generateModalContacts() {
   const modalWindow = document.querySelector(".modal-window");
 
   const contactTitleElement = make("h2", "modal-window__title");
-  contactTitleElement.innerHTML = `Contact our team`;
+  contactTitleElement.innerHTML = "Contact our team";
   modalWindow.append(contactTitleElement);
 
-  const team = [{
-      name: "Julia V.",
-      link: "https://github.com/JuliaVasiukevich"
-    },
-    {
-      name: "Anna B.",
-      link: "https://github.com/AnnaBR01"
-    },
-    {
-      name: "Julia K.",
-      link: "https://github.com/Julia-Kovalchuk"
-    },
-    {
-      name: "Anna Yu.",
-      link: "https://github.com/annyurchenko"
-    },
+  const team = [
+    { name: "Julia V.", link: "https://github.com/JuliaVasiukevich" },
+    { name: "Anna B.", link: "https://github.com/AnnaBR01" },
+    { name: "Julia K.", link: "https://github.com/Julia-Kovalchuk" },
+    { name: "Anna Yu.", link: "https://github.com/annyurchenko" },
   ];
 
   for (let person of team) {
@@ -219,7 +196,7 @@ function generateModalContacts() {
     contactElement.append(contactLink);
 
     let contactImage = make("img", "modal-window__contact-image", {
-      src: "../images/github-logo.svg",
+      src: "../images/github-logo.png",
       alt: "select",
     });
     contactLink.append(contactImage);
@@ -243,9 +220,12 @@ document.body.addEventListener("click", (event) => {
 const select = document.querySelector(".header__selection");
 
 select.addEventListener("change", function (event) {
+  const deskButton = document.body.querySelector('.desk__button');
+  if (deskButton) {
+    deskButton.remove();
+  }
   const sectionCard = document.querySelector(".grid");
   sectionCard.innerHTML = "";
-
 
   localStorage.removeItem("desk");
   let json = "";

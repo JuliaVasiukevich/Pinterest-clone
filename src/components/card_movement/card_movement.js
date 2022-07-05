@@ -1,3 +1,7 @@
+import {
+  makeCards
+} from "../../utils.js";
+
 export {
   modalWindow,
   putMethodForCurrentDesk,
@@ -5,20 +9,14 @@ export {
   modalWindowOpening,
 };
 
-import {
-  makeCards
-} from "../basic-card/basic-card.js";
-
 function modalWindowOpening() {
   const section = document.querySelector(".grid");
   const modalWindow = document.querySelector(".modal-wrapper");
   const pictureID = modalWindow.getAttribute("data-img_id");
 
-  /*methods*/
   function putMethodForCurrentDesk(deskID, currentDesk, pictureID) {
     let arrayPictures = currentDesk["pictures"];
     let newArrayPictures = arrayPictures.filter((e) => e["_id"] !== pictureID);
-    localStorage.desk = JSON.stringify(currentDesk);
     return fetch(`http://localhost:3000/desks/${deskID}`, {
       method: "PUT",
       headers: {
@@ -41,14 +39,13 @@ function modalWindowOpening() {
       body: JSON.stringify(newArrayPictures),
     });
   }
-
+  
   function removeModalWindow(desk) {
     section.innerHTML = "";
     makeCards(desk);
     modalWindow.remove();
   }
 
-  /*ОБРАБОТЧИК */
   modalWindow.addEventListener("click", (e) => {
     let arrayOfDesks;
     let currentDesk;
@@ -70,16 +67,11 @@ function modalWindowOpening() {
           currentDesk = desk;
         }
       }
-      console.log(currentDesk);
       let currentDeskID = currentDesk["_id"];
 
-      // Ищет текущий !объект! картинки
       currentPicture = currentDesk["pictures"].find(
         (element) => element["_id"] == pictureID
       );
-      // console.log(currentPicture);
-
-      //   //итого у меня есть текущая доска, у меня есть нужная картинка
 
       if (e.target.tagName === "P") {
         const deskTitle = e.target.textContent;
@@ -94,12 +86,18 @@ function modalWindowOpening() {
 
         let nextDeskID = nextDesk["_id"];
 
-        putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID); // изменили в текущей доске
-        putMethodForNextDesk(nextDeskID, nextDesk, currentPicture); // добавили в следующую
+        putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID); 
+        putMethodForNextDesk(nextDeskID, nextDesk, currentPicture);
+        let newCurrentDesk;
+        for (let desk of arrayOfDesks) {
+          if (desk["_id"] === currentDeskID) {
+            newCurrentDesk = desk;
+          }
+        }
         let json = localStorage.getItem("desk");
         let deskAfterReboot = JSON.parse(json);
         makeCards(deskAfterReboot);
-        removeModalWindow(currentDesk);
+        removeModalWindow(newCurrentDesk);
       } else if (e.target.value === "Send") {
         let archiveDesk = arrayOfDesks.find(
           (element) => element["title"] === "archived"

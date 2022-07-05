@@ -1,15 +1,15 @@
-import { make } from "../../utils.js";
-import { makeRandomColor } from "../../utils.js";
+import {
+  make,
+  makeRandomColor,
+  API_URL,
+  AVATAR_PREFIX,
+  PICTURES_PREFIX
+} from "../../utils.js";
 
 export function generateCardModalWindow(obj) {
   let arrayOfDesks;
   let currentDesk;
   let currentPicture;
-
-  /* может это вынести у утилс? встречается еще в makecard*/
-  const API_URL = "http://localhost:3000";
-  const PICTURES_PREFIX = "/images/pictures/";
-  const AVATAR_PREFIX = "/images/avatars/";
 
   const modalWrapper = document.querySelector(".modal-wrapper");
   const modalWindow = document.querySelector(".modal-window");
@@ -29,7 +29,6 @@ export function generateCardModalWindow(obj) {
       }
     }
 
-    // Ищет текущий !объект! картинки
     currentPicture = currentDesk["pictures"].find(
       (element) => element["_id"] == pictureId
     );
