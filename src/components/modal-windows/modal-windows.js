@@ -48,7 +48,7 @@ function generateModalDesk(desksArray) {
   const modalWindow = document.querySelector(".modal-window");
 
   const deskTitleElement = make("h2", "modal-window__title");
-  deskTitleElement.innerHTML = `Модальное окно <br/> меню выбор доски`;
+  deskTitleElement.innerHTML = `Select board:`;
   modalWindow.append(deskTitleElement);
 
   for (let element of desksArray) {
@@ -187,6 +187,7 @@ select.addEventListener("change", function (event) {
         percentPosition: true,
         fitWidth: true,
         gutter: 10,
+
       });
     });
 });
