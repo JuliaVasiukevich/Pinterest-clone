@@ -97,6 +97,7 @@ export function makeCards(data) {
         percentPosition: true,
         fitWidth: true,
         gutter: 10,
+        columnWidth: 200,
       });
     };
   }
