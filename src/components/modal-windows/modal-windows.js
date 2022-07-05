@@ -1,15 +1,7 @@
-import {
-  make
-} from "../../utils.js";
-import {
-  getDesks
-} from "../desk/desk.js";
-import {
-  makeCards
-} from "../basic-card/basic-card.js";
-import {
-  modalWindowOpening
-} from "../card_movement/card_movement.js";
+import { make } from "../../utils.js";
+import { getDesks } from "../desk/desk.js";
+import { makeCards } from "../basic-card/basic-card.js";
+import { modalWindowOpening } from "../card_movement/card_movement.js";
 
 export const claims = [
   "Spam",
@@ -74,14 +66,12 @@ function generateModalСlaims(claimsArray) {
 
   const claimTitleElement = make("h2", "modal-window__title");
 
-
-
   claimTitleElement.innerHTML = `Report pin`;
 
   modalWindow.append(claimTitleElement);
 
   const form = make("form", "modal-window__form", {
-    enctype: "multipart/form-data"
+    enctype: "multipart/form-data",
   });
   modalWindow.append(form);
   /*Два атрибута HTML необходимы:
@@ -131,18 +121,17 @@ method может быть либо GET, либо POST и определяет, 
 
     for (let radio of radios) {
       if (radio.checked) {
-        event.preventDefault()
+        event.preventDefault();
         let msg = {
           massage: radio.value,
-        }
+        };
         fetch("http://localhost:3000/telegram", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(msg),
-        })
-
+        });
       } else {
         event.preventDefault();
         modalWrapper.remove();
@@ -164,13 +153,11 @@ document.body.addEventListener("click", (event) => {
   }
 });
 
-
 const select = document.querySelector(".header__selection");
 
 select.addEventListener("change", function (event) {
   const sectionCard = document.querySelector(".grid");
   sectionCard.innerHTML = "";
-
 
   localStorage.removeItem("desk");
   let json = "";
@@ -187,7 +174,6 @@ select.addEventListener("change", function (event) {
         if (desk.title === deskName) {
           makeCards(desk);
 
-
           json = JSON.stringify(desk);
           localStorage.setItem("desk", json);
         }
@@ -195,11 +181,12 @@ select.addEventListener("change", function (event) {
     })
     .then(() => {
       var Masonry = require("masonry-layout");
-      var elem = document.querySelector('.grid');
+      var elem = document.querySelector(".grid");
       var msnry = new Masonry(elem, {
-        // options
-        itemSelector: '.grid-item',
-        columnWidth: 200
+        itemSelector: ".grid-item",
+        percentPosition: true,
+        fitWidth: true,
+        gutter: 10,
       });
-    })
+    });
 });
