@@ -5,7 +5,9 @@ export {
   modalWindowOpening,
 };
 
-import { makeCards } from "../basic-card/basic-card.js";
+import {
+  makeCards
+} from "../basic-card/basic-card.js";
 
 function modalWindowOpening() {
   const section = document.querySelector(".grid");
@@ -94,19 +96,22 @@ function modalWindowOpening() {
 
         putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID); // изменили в текущей доске
         putMethodForNextDesk(nextDeskID, nextDesk, currentPicture); // добавили в следующую
+        let json = localStorage.getItem("desk");
+        let deskAfterReboot = JSON.parse(json);
+        makeCards(deskAfterReboot);
         removeModalWindow(currentDesk);
       } else if (e.target.value === "Send") {
         let archiveDesk = arrayOfDesks.find(
           (element) => element["title"] === "archived"
         );
+        let archivedtDeskID = archiveDesk["_id"];
 
         putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID);
-        putMethodForNextDesk(
-          "62b6cdf529b60bb10c244fce",
-          archiveDesk,
-          currentPicture
-        );
 
+        putMethodForNextDesk(archivedtDeskID, archiveDesk, currentPicture);
+        let json = localStorage.getItem("desk");
+        let deskAfterReboot = JSON.parse(json);
+        makeCards(deskAfterReboot);
         removeModalWindow(currentDesk);
       }
     }

@@ -2,16 +2,31 @@ import { make } from "../../utils.js";
 import { getDesks } from "../desk/desk.js";
 import { makeCards } from "../basic-card/basic-card.js";
 import { modalWindowOpening } from "../card_movement/card_movement.js";
+
 import { generateCardModalWindow } from "../card_modal-window/card_modal-window.js";
 
-export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
+
+
+export const claims = [
+  "Spam",
+  "Nudity or pornography",
+  "Self-harm",
+  "Misinformation",
+  "Hateful activities",
+  "Dangerous goods",
+  "Harassment or privacy violations",
+  "Graphic violence",
+  "My intellectual property",
+];
 
 document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("card__button-claim") ||
     event.target.classList.contains("card__button-desk") ||
+
     event.target.classList.contains("card__overlay") ||
-    event.target.classList.contains("description__text")
+    event.target.classList.contains("description__text") ||
+    event.target.classList.contains("menu__contacts")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
     const pictureId = event.target.getAttribute("data-img_id");
@@ -34,11 +49,14 @@ document.body.addEventListener("click", (event) => {
       getDesks(generateModalDesk);
     }
 
+
     if (
       event.target.classList.contains("card__overlay") ||
       event.target.classList.contains("description__text")
     ) {
       generateCardModalWindow();
+    if (event.target.classList.contains("menu__contacts")) {
+      generateModalContacts();
     }
   }
   modalWindowOpening();
@@ -48,7 +66,7 @@ function generateModalDesk(desksArray) {
   const modalWindow = document.querySelector(".modal-window");
 
   const deskTitleElement = make("h2", "modal-window__title");
-  deskTitleElement.innerHTML = `Модальное окно <br/> меню выбор доски`;
+  deskTitleElement.innerHTML = `Select board:`;
   modalWindow.append(deskTitleElement);
 
   for (let element of desksArray) {
@@ -66,10 +84,14 @@ function generateModalСlaims(claimsArray) {
 
   const claimTitleElement = make("h2", "modal-window__title");
 
-  claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
+
+  claimTitleElement.innerHTML = `Report pin`;
+
   modalWindow.append(claimTitleElement);
 
-  const form = make("form", "modal-window__form");
+  const form = make("form", "modal-window__form", {
+    enctype: "multipart/form-data",
+  });
   modalWindow.append(form);
   /*Два атрибута HTML необходимы:
 action содержит адрес, который определяет, куда будет отправлена информация формы;
@@ -118,13 +140,65 @@ method может быть либо GET, либо POST и определяет, 
 
     for (let radio of radios) {
       if (radio.checked) {
-        console.log("Отправляем на почту"); //TODO: add send by email
+
+        event.preventDefault();
+        // const modalWrapper = document.querySelector(".modal-wrapper");
+        // const pictureID = modalWrapper.getAttribute('data-img_id');
+        // console.log(pictureID);
+        let msg = {
+          message: radio.value,
+        };
+        fetch("http://localhost:3000/telegram", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(msg),
+        });
       } else {
         event.preventDefault();
         modalWrapper.remove();
       }
     }
   });
+
+  return;
+}
+
+function generateModalContacts() {
+  const modalWindow = document.querySelector(".modal-window");
+
+  const contactTitleElement = make("h2", "modal-window__title");
+  contactTitleElement.innerHTML = `Contact our team`;
+  modalWindow.append(contactTitleElement);
+
+  const team = [
+    { name: "Julia V.", link: "https://github.com/JuliaVasiukevich" },
+    { name: "Anna B.", link: "https://github.com/AnnaBR01" },
+    { name: "Julia K.", link: "https://github.com/Julia-Kovalchuk" },
+    { name: "Anna Yu.", link: "https://github.com/annyurchenko" },
+  ];
+
+  for (let person of team) {
+    const contactElement = make("div", "modal-window__contact-element");
+    modalWindow.append(contactElement);
+
+    let contactName = make("p", "modal-window__contact-name");
+    contactName.textContent = `${person["name"]}:`;
+    contactElement.append(contactName);
+
+    let contactLink = make("a", "modal-window__contact-link", {
+      href: person["link"],
+      target: "blanck",
+    });
+    contactElement.append(contactLink);
+
+    let contactImage = make("img", "modal-window__contact-image", {
+      src: "../images/github-logo.png",
+      alt: "select",
+    });
+    contactLink.append(contactImage);
+  }
 
   return;
 }
@@ -141,15 +215,15 @@ document.body.addEventListener("click", (event) => {
   }
 });
 
-// function switchByDesk() {
 const select = document.querySelector(".header__selection");
 
 select.addEventListener("change", function (event) {
   const sectionCard = document.querySelector(".grid");
   sectionCard.innerHTML = "";
 
-  // localStorage.removeItem("desk");
-  // let json = "";
+
+  localStorage.removeItem("desk");
+  let json = "";
 
   const deskName = event.target.value;
   let arrayOfDesks = null;
@@ -162,12 +236,21 @@ select.addEventListener("change", function (event) {
         if (desk.title === deskName) {
           makeCards(desk);
 
-          // json = JSON.stringify(desk);
-          // localStorage.setItem("desk", json);
+
+          json = JSON.stringify(desk);
+          localStorage.setItem("desk", json);
         }
       }
+    })
+    .then(() => {
+      var Masonry = require("masonry-layout");
+      var elem = document.querySelector(".grid");
+      var msnry = new Masonry(elem, {
+        itemSelector: ".grid-item",
+        percentPosition: true,
+        fitWidth: true,
+        gutter: 10,
+
+      });
     });
 });
-// }
-
-// switchByDesk();

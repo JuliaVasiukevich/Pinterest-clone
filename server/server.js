@@ -70,6 +70,11 @@ app.get("/desks", async function (req, res) {
 
 app.post("/desks", jsonParser, async (req, res) => {
   const desk = req.body;
+  const existedDesk = await deskModel.findOne({title: desk.title});
+  if (existedDesk) {
+    res.status(400).json({data: null, message: 'The desk with this title is already exist'});
+    return;
+  }
   const deskDoc = new deskModel(desk);
   await deskDoc.save();
   res.json({
@@ -111,7 +116,7 @@ app.post("/telegram", jsonParser, function sendMsg(req, res) {
 
   // каждый элемент обьекта запихиваем в массив
   let fields = [
-    '<b>Report</b>: ' + reqBody.massage,
+    '<b>Report</b>: ' + reqBody.message,
   ]
   let msg = ''
   // проходимся по массиву и склеиваем все в одну строку

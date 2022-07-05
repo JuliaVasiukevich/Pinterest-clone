@@ -8,21 +8,18 @@
     <title>Pinterest-clone</title>
     <link rel="stylesheet" href="./styles/main.scss" />
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
-    <!-- <script
-      defer
-      src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"
-    ></script> -->
     <script defer src="./main.js" type="module"></script>
   </head>
 
   <body>
     <div id="pep"></div>
-    <header class="header container">
-      <img
-              class="header__logo"
-        src="./images/pinterest-logo.png"
-        alt="pinterest-logo"
-      />
+    <header class="header container" id="header">
+      <a href="#header">
+        <img
+          class="header__logo"
+          src="./images/pinterest-logo.png"
+          alt="pinterest-logo"
+      /></a>
       <h2 class="header__name">Pinterest</h2>
       <div class="header__search">
         <svg
@@ -50,7 +47,7 @@
         />
       </div>
       <select class="header__selection" size="1" name="desks">
-        <option disabled>Choose desk...</option>
+        <option disabled>Choose board...</option>
       </select>
       <label class="theme">
         <input type="checkbox" class="theme__checkbox" />
@@ -62,21 +59,21 @@
         <div class="grid-sizer"></div>
       </div>
     </section>
-    <footer class="footer container">
+    <footer class="footer container" id="footer">
       <hr />
       <ul class="footer__menu menu">
         <li>
           <a
-            href="#"
+            href="#header"
             class="menu__home"
-            data-tooltip="Please, click here to back on main page"
+            data-tooltip="Click here to back on main page"
             >Home</a
           >
         </li>
 
         <li>
           <a
-            href="#"
+            href="#footer"
             class="menu__about"
             data-tooltip="This site was made only for practising of team's front-end skills and don't mean commercial or something illegal."
             >About</a
@@ -85,25 +82,28 @@
 
         <li>
           <a
-            href="#"
+            href="#footer"
             class="menu__team"
-            data-tooltip="Team-lead: Julia V. & Anna B., Julia K., Anna Yu."
+            data-tooltip="Team-lead: Julia V.; collaborators: Anna B., Julia K., Anna Yu."
             >Team</a
           >
         </li>
 
         <li>
           <a
-            href="#"
+            href="https://github.com/JuliaVasiukevich/Pinterest-clone"
             class="menu__contacts"
-            data-tooltip="Please, click here to see contacts."
-            >Contacts</a
+            data-tooltip="Click here to see github repository"
+            target="_blank"
+            >Code</a
           >
         </li>
       </ul>
       <p class="footer__legacy">
         ©2022 TeachMeSkills | All Rights (not) Reserved
       </p>
+      <button class="add_board button" id = "add_board"> +
+      </button>
     </footer>
   </body>
 </html>
