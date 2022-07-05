@@ -122,8 +122,11 @@ method может быть либо GET, либо POST и определяет, 
     for (let radio of radios) {
       if (radio.checked) {
         event.preventDefault();
+        // const modalWrapper = document.querySelector(".modal-wrapper");
+        // const pictureID = modalWrapper.getAttribute('data-img_id');
+        // console.log(pictureID);
         let msg = {
-          massage: radio.value,
+          message: radio.value,
         };
         fetch("http://localhost:3000/telegram", {
           method: "POST",

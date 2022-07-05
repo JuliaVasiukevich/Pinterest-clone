@@ -45,3 +45,34 @@
     font-size: small;
   }
 }
+
+.add_board {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 50%;
+  font-size: rem(30px);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #524f4e;
+  box-shadow: 2px 8px 8px map.get($colors, "colorDarkGray");
+  border: 0;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.add_board:hover {
+  background: map.get($colors, "colorLightGray");
+  box-shadow: 0 15px 20px map.get($colors, "colorDarkGray");
+  transform: translateY(-7px);
+}
+
+.error-message {
+  color: map.get($colors, "colorMainRed");
+  font-size: 0.8em;
+}

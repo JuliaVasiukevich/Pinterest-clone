@@ -118,6 +118,17 @@
     border: 1px solid map.get($colors, "colorLightRed");
   }
 
+  &__input{
+    padding: 7px;
+    border: none;
+    background-color: inherit;
+    font-size: rem(15px);
+    line-height: rem(15px);
+    border: 1px solid map.get($colors, "colorLightGray");
+    background-color: map.get($colors, "colorLightGray");
+    border-radius: 5px;
+  }
+
   &__loading {
     @include themify($themes) {
       color: themed("colorMainRed");
