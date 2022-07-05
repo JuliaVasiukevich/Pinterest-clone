@@ -18,7 +18,8 @@ export const claims = [
 document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("card__button-claim") ||
-    event.target.classList.contains("card__button-desk")
+    event.target.classList.contains("card__button-desk") ||
+    event.target.classList.contains("menu__contacts")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
     const pictureId = event.target.getAttribute("data-img_id");
@@ -40,6 +41,10 @@ document.body.addEventListener("click", (event) => {
       let loading = make("div", "modal-window__loading");
       modalWindow.append(loading);
       getDesks(generateModalDesk);
+    }
+
+    if (event.target.classList.contains("menu__contacts")) {
+      generateModalContacts();
     }
   }
 });
@@ -141,6 +146,44 @@ method может быть либо GET, либо POST и определяет, 
       }
     }
   });
+
+  return;
+}
+
+function generateModalContacts() {
+  const modalWindow = document.querySelector(".modal-window");
+
+  const contactTitleElement = make("h2", "modal-window__title");
+  contactTitleElement.innerHTML = `Contact our team`;
+  modalWindow.append(contactTitleElement);
+
+  const team = [
+    { name: "Julia V.", link: "https://github.com/JuliaVasiukevich" },
+    { name: "Anna B.", link: "https://github.com/AnnaBR01" },
+    { name: "Julia K.", link: "https://github.com/Julia-Kovalchuk" },
+    { name: "Anna Yu.", link: "https://github.com/annyurchenko" },
+  ];
+
+  for (let person of team) {
+    const contactElement = make("div", "modal-window__contact-element");
+    modalWindow.append(contactElement);
+
+    let contactName = make("p", "modal-window__contact-name");
+    contactName.textContent = `${person["name"]}:`;
+    contactElement.append(contactName);
+
+    let contactLink = make("a", "modal-window__contact-link", {
+      href: person["link"],
+      target: "blanck",
+    });
+    contactElement.append(contactLink);
+
+    let contactImage = make("img", "modal-window__contact-image", {
+      src: "../images/github-logo.png",
+      alt: "select",
+    });
+    contactLink.append(contactImage);
+  }
 
   return;
 }
