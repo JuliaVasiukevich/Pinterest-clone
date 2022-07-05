@@ -1,7 +1,6 @@
 import { make } from "../../utils.js";
 import { makeRandomColor } from "../../utils.js";
 
-
 let firstDesk;
 const data = fetch("http://localhost:3000/desks")
   .then((res) => res.json())
@@ -45,6 +44,7 @@ export function makeCards(data) {
     cardImage.setAttribute("data-img_id", `${item._id}`); //привязка к ID для дальнейшей работы с модальным окном
 
     const cardOverlay = make("div", "card__overlay");
+    cardOverlay.setAttribute("data-img_id", `${item._id}`); // для работы модалки карточки нужно
     cardOverlay.style.backgroundColor = `url(${API_URL}${PICTURES_PREFIX}${item["url"]})`;
     pictureBox.append(cardImage, cardOverlay);
 
@@ -55,7 +55,7 @@ export function makeCards(data) {
     ]);
     buttonAddCardOnDesk.setAttribute("data-img_id", `${item._id}`);
     cardOverlay.append(buttonAddCardOnDesk);
-    buttonAddCardOnDesk.textContent = "Добавить на доску";
+    buttonAddCardOnDesk.textContent = "Add to the board";
 
     const buttonComplain = make("button", [
       "card__button",
@@ -64,7 +64,7 @@ export function makeCards(data) {
     ]);
     buttonComplain.setAttribute("data-img_id", `${item._id}`);
     cardOverlay.append(buttonComplain);
-    buttonComplain.textContent = "Пожаловаться";
+    buttonComplain.textContent = "Complain";
 
     const descriptionBlock = make("div", ["card__description", "description"]);
     card.append(descriptionBlock);
@@ -87,25 +87,24 @@ export function makeCards(data) {
     const desctiptionText = make("div", "description__text");
     desctiptionText.textContent = `${item["description"]}`;
 
-    desctiptionText.setAttribute("data-img_id", `${item.id}`);
+    desctiptionText.setAttribute("data-img_id", `${item._id}`);
 
     descriptionBlock.append(desctiptionText);
 
-
     cardImage.onload = () => {
       var Masonry = require("masonry-layout");
-      var elem = document.querySelector('.grid');
+      var elem = document.querySelector(".grid");
       var msnry = new Masonry(elem, {
         // options
-        itemSelector: '.grid-item',
+        itemSelector: ".grid-item",
         columnWidth: 200,
         percentPosition: true,
         fitWidth: true,
         gutter: 10,
         // columnWidth: '.grid-sizer',
-        percentPosition: true
+        percentPosition: true,
       });
-    }
+    };
   }
   return cards;
 }

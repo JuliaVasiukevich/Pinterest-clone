@@ -3,6 +3,10 @@ import { getDesks } from "../desk/desk.js";
 import { makeCards } from "../basic-card/basic-card.js";
 import { modalWindowOpening } from "../card_movement/card_movement.js";
 
+import { generateCardModalWindow } from "../card_modal-window/card_modal-window.js";
+
+
+
 export const claims = [
   "Spam",
   "Nudity or pornography",
@@ -19,6 +23,9 @@ document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("card__button-claim") ||
     event.target.classList.contains("card__button-desk") ||
+
+    event.target.classList.contains("card__overlay") ||
+    event.target.classList.contains("description__text") ||
     event.target.classList.contains("menu__contacts")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
@@ -31,7 +38,6 @@ document.body.addEventListener("click", (event) => {
 
     const modalWindow = make("div", "modal-window");
     modalBody.append(modalWindow);
-    modalWindowOpening();
 
     if (event.target.classList.contains("card__button-claim")) {
       generateModalСlaims(claims);
@@ -43,10 +49,17 @@ document.body.addEventListener("click", (event) => {
       getDesks(generateModalDesk);
     }
 
+
+    if (
+      event.target.classList.contains("card__overlay") ||
+      event.target.classList.contains("description__text")
+    ) {
+      generateCardModalWindow();
     if (event.target.classList.contains("menu__contacts")) {
       generateModalContacts();
     }
   }
+  modalWindowOpening();
 });
 
 function generateModalDesk(desksArray) {
@@ -70,6 +83,7 @@ function generateModalСlaims(claimsArray) {
   const modalWindow = document.querySelector(".modal-window");
 
   const claimTitleElement = make("h2", "modal-window__title");
+
 
   claimTitleElement.innerHTML = `Report pin`;
 
@@ -126,6 +140,7 @@ method может быть либо GET, либо POST и определяет, 
 
     for (let radio of radios) {
       if (radio.checked) {
+
         event.preventDefault();
         // const modalWrapper = document.querySelector(".modal-wrapper");
         // const pictureID = modalWrapper.getAttribute('data-img_id');
@@ -192,7 +207,8 @@ document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("modal-wrapper") ||
     event.target.classList.contains("modal-close") ||
-    event.target.classList.contains("modal-body")
+    event.target.classList.contains("modal-body") ||
+    event.target.classList.contains("button--close")
   ) {
     const modalWrapper = document.querySelector(".modal-wrapper");
     modalWrapper.remove();
@@ -205,12 +221,12 @@ select.addEventListener("change", function (event) {
   const sectionCard = document.querySelector(".grid");
   sectionCard.innerHTML = "";
 
+
   localStorage.removeItem("desk");
   let json = "";
 
   const deskName = event.target.value;
-  let arrayOfDesks;
-
+  let arrayOfDesks = null;
   const data = fetch("http://localhost:3000/desks")
     .then((res) => res.json())
     .then((res) => {
@@ -219,6 +235,7 @@ select.addEventListener("change", function (event) {
       for (let desk of arrayOfDesks) {
         if (desk.title === deskName) {
           makeCards(desk);
+
 
           json = JSON.stringify(desk);
           localStorage.setItem("desk", json);
