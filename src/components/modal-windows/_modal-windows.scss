@@ -129,6 +129,30 @@
     height: 50px;
     animation: spin 2s linear infinite;
   }
+
+  &__contact-element {
+    display: flex;
+    margin-top: 10px;
+
+    &:focus,
+    &:hover {
+      @include themify($themes) {
+        color: themed("colorLightRed");
+      }
+      font-weight: bold;
+    }
+
+    &:active {
+      @include themify($themes) {
+        color: themed("colorMainRed");
+      }
+    }
+  }
+
+  &__contact-link {
+    text-decoration: none;
+    margin-left: 10px;
+  }
 }
 
 @keyframes spin {
