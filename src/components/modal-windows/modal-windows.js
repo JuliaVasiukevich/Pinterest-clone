@@ -1,32 +1,17 @@
-import {
-  make
-} from "../../utils.js";
-import {
-  getDesks
-} from "../desk/desk.js";
-import {
-  makeCards
-} from "../basic-card/basic-card.js";
-import {
-  modalWindowOpening
-} from "../card_movement/card_movement.js";
+import { make } from "../../utils.js";
+import { getDesks } from "../desk/desk.js";
+import { makeCards } from "../basic-card/basic-card.js";
+import { modalWindowOpening } from "../card_movement/card_movement.js";
+import { generateCardModalWindow } from "../card_modal-window/card_modal-window.js";
 
-export const claims = [
-  "Spam",
-  "Nudity or pornography",
-  "Self-harm",
-  "Misinformation",
-  "Hateful activities",
-  "Dangerous goods",
-  "Harassment or privacy violations",
-  "Graphic violence",
-  "My intellectual property",
-];
+export const claims = ["test1", "test2", "test3", "test4", "test5", "test6"];
 
 document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("card__button-claim") ||
-    event.target.classList.contains("card__button-desk")
+    event.target.classList.contains("card__button-desk") ||
+    event.target.classList.contains("card__overlay") ||
+    event.target.classList.contains("description__text")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
     const pictureId = event.target.getAttribute("data-img_id");
@@ -38,7 +23,6 @@ document.body.addEventListener("click", (event) => {
 
     const modalWindow = make("div", "modal-window");
     modalBody.append(modalWindow);
-    modalWindowOpening();
 
     if (event.target.classList.contains("card__button-claim")) {
       generateModalСlaims(claims);
@@ -49,7 +33,15 @@ document.body.addEventListener("click", (event) => {
       modalWindow.append(loading);
       getDesks(generateModalDesk);
     }
+
+    if (
+      event.target.classList.contains("card__overlay") ||
+      event.target.classList.contains("description__text")
+    ) {
+      generateCardModalWindow();
+    }
   }
+  modalWindowOpening();
 });
 
 function generateModalDesk(desksArray) {
@@ -74,15 +66,10 @@ function generateModalСlaims(claimsArray) {
 
   const claimTitleElement = make("h2", "modal-window__title");
 
-
-
-  claimTitleElement.innerHTML = `Report pin`;
-
+  claimTitleElement.innerHTML = `Модальное окно <br/> меню пожаловаться`;
   modalWindow.append(claimTitleElement);
 
-  const form = make("form", "modal-window__form", {
-    enctype: "multipart/form-data"
-  });
+  const form = make("form", "modal-window__form");
   modalWindow.append(form);
   /*Два атрибута HTML необходимы:
 action содержит адрес, который определяет, куда будет отправлена информация формы;
@@ -131,18 +118,7 @@ method может быть либо GET, либо POST и определяет, 
 
     for (let radio of radios) {
       if (radio.checked) {
-        event.preventDefault()
-        let msg = {
-          massage: radio.value,
-        }
-        fetch("http://localhost:3000/telegram", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(msg),
-        })
-
+        console.log("Отправляем на почту"); //TODO: add send by email
       } else {
         event.preventDefault();
         modalWrapper.remove();
@@ -157,27 +133,26 @@ document.body.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("modal-wrapper") ||
     event.target.classList.contains("modal-close") ||
-    event.target.classList.contains("modal-body")
+    event.target.classList.contains("modal-body") ||
+    event.target.classList.contains("button--close")
   ) {
     const modalWrapper = document.querySelector(".modal-wrapper");
     modalWrapper.remove();
   }
 });
 
-
+// function switchByDesk() {
 const select = document.querySelector(".header__selection");
 
 select.addEventListener("change", function (event) {
   const sectionCard = document.querySelector(".grid");
   sectionCard.innerHTML = "";
 
-
-  localStorage.removeItem("desk");
-  let json = "";
+  // localStorage.removeItem("desk");
+  // let json = "";
 
   const deskName = event.target.value;
-  let arrayOfDesks;
-
+  let arrayOfDesks = null;
   const data = fetch("http://localhost:3000/desks")
     .then((res) => res.json())
     .then((res) => {
@@ -187,19 +162,12 @@ select.addEventListener("change", function (event) {
         if (desk.title === deskName) {
           makeCards(desk);
 
-
-          json = JSON.stringify(desk);
-          localStorage.setItem("desk", json);
+          // json = JSON.stringify(desk);
+          // localStorage.setItem("desk", json);
         }
       }
-    })
-    .then(() => {
-      var Masonry = require("masonry-layout");
-      var elem = document.querySelector('.grid');
-      var msnry = new Masonry(elem, {
-        // options
-        itemSelector: '.grid-item',
-        columnWidth: 200
-      });
-    })
+    });
 });
+// }
+
+// switchByDesk();

@@ -16,7 +16,7 @@ function modalWindowOpening() {
   function putMethodForCurrentDesk(deskID, currentDesk, pictureID) {
     let arrayPictures = currentDesk["pictures"];
     let newArrayPictures = arrayPictures.filter((e) => e["_id"] !== pictureID);
-    // console.log(newArrayPictures);
+    localStorage.desk = JSON.stringify(currentDesk);
     return fetch(`http://localhost:3000/desks/${deskID}`, {
       method: "PUT",
       headers: {
@@ -38,7 +38,6 @@ function modalWindowOpening() {
       },
       body: JSON.stringify(newArrayPictures),
     });
-
   }
 
   function removeModalWindow(desk) {
@@ -69,6 +68,7 @@ function modalWindowOpening() {
           currentDesk = desk;
         }
       }
+      console.log(currentDesk);
       let currentDeskID = currentDesk["_id"];
 
       // Ищет текущий !объект! картинки
@@ -101,7 +101,11 @@ function modalWindowOpening() {
         );
 
         putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID);
-        putMethodForNextDesk("62b6cdf529b60bb10c244fce", archiveDesk, currentPicture);
+        putMethodForNextDesk(
+          "62b6cdf529b60bb10c244fce",
+          archiveDesk,
+          currentPicture
+        );
 
         removeModalWindow(currentDesk);
       }
