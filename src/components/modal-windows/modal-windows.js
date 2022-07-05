@@ -183,9 +183,11 @@ select.addEventListener("change", function (event) {
       var Masonry = require("masonry-layout");
       var elem = document.querySelector(".grid");
       var msnry = new Masonry(elem, {
-        // options
         itemSelector: ".grid-item",
-        columnWidth: 200,
+        percentPosition: true,
+        fitWidth: true,
+        gutter: 10,
+
       });
     });
 });

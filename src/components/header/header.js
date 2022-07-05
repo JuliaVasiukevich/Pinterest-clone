@@ -1,4 +1,6 @@
 import { makeCards } from "../basic-card/basic-card.js";
+import { make } from "../../utils.js";
+
 export function header() {
   const theme = document.body.querySelector(".theme__checkbox");
   theme.addEventListener("click", () => {
@@ -41,23 +43,32 @@ async function fetchArrayOfCards() {
       return (arrayOfAllCards = res.data);
     });
 }
-
 fetchArrayOfCards();
 
-function searchCards(keyword) {
+function getDeskIdFromLocalStorage() {
   let json = localStorage.getItem("desk");
-  let currentDeskId = JSON.parse(json)["_id"];
-  let currentDeskTitle = JSON.parse(json)["title"];
-  console.log(currentDeskId);
+  let idExtended = JSON.parse(json)["_id"];
+
+  for (let object in arrayOfAllCards) {
+    if (arrayOfAllCards[object]["_id"] === idExtended) {
+      return object;
+    }
+  }
+}
+
+export function clearDesk() {
+  let desk = document.querySelector(".grid");
+  desk.innerHTML = "";
+}
+
+function searchCards(keyword) {
+  let currentDeskId = getDeskIdFromLocalStorage();
+  let searchHashtag = "#" + keyword;
   let arrayOfFoundCards = [
     {
       pictures: [],
-      title: currentDeskTitle,
-      _id: currentDeskId,
     },
   ];
-
-  let searchHashtag = "#" + keyword;
 
   for (let card of arrayOfAllCards[currentDeskId]["pictures"]) {
     if (card["description"].includes(searchHashtag)) {
@@ -67,9 +78,22 @@ function searchCards(keyword) {
   return arrayOfFoundCards;
 }
 
-function clearDesk() {
-  let desk = document.querySelector(".grid");
-  desk.innerHTML = "";
+function addBackToAllPinsButton() {
+  let desk = document.querySelector(".desk");
+  let button = document.querySelector(".desk__button");
+  let currentDeskId = getDeskIdFromLocalStorage();
+
+  if (!button) {
+    let button = make("button", "desk__button");
+    button.innerText = "Back to all Pins";
+    desk.append(button);
+
+    button.addEventListener("click", (event) => {
+      clearDesk();
+      makeCards(arrayOfAllCards[currentDeskId]);
+      desk.lastChild.remove();
+    });
+  }
 }
 
 search.addEventListener("keydown", (event) => {
@@ -78,6 +102,7 @@ search.addEventListener("keydown", (event) => {
   if (event.key == "Enter") {
     let arrayOfFoundCards = searchCards(search.value);
     clearDesk();
+    addBackToAllPinsButton();
     makeCards(arrayOfFoundCards[0]);
     search.value = "";
   }
