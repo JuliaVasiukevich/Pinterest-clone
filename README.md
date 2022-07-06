@@ -3,7 +3,7 @@
 
 </h2>
 
-<img src="../../images/pinterest-logo.png" width="100%">
+<img src="https://img.freepik.com/premium-photo/3d-render-of-shiny-pinterest-logo-on-black-dark-background_6359-150.jpg?w=826" width="100%">
 
 ## Описание
 
