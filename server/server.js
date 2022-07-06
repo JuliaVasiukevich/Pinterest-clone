@@ -70,9 +70,14 @@ app.get("/desks", async function (req, res) {
 
 app.post("/desks", jsonParser, async (req, res) => {
   const desk = req.body;
-  const existedDesk = await deskModel.findOne({title: desk.title});
+  const existedDesk = await deskModel.findOne({
+    title: desk.title
+  });
   if (existedDesk) {
-    res.status(400).json({data: null, message: 'The desk with this title is already exist'});
+    res.status(400).json({
+      data: null,
+      message: 'The desk with this title is already exist'
+    });
     return;
   }
   const deskDoc = new deskModel(desk);
@@ -88,24 +93,20 @@ app.listen(port, () => {
 });
 
 
-// var url = "/desks";
-
-// MongoClient.connect(url, function(err, db){
-
-// var collection = db.collection('desks');
-
-// var db = require("./db");
-app.put("/desks/:id", jsonParser, function (req, res) {
+app.put("/desks/:id", jsonParser, async function (req, res) {
   const newImages = req.body.map(img => img._id)
-  deskModel.findByIdAndUpdate(req.params.id, {pictures: newImages},
-    function (err, result) {
-      if (err) {
-        console.log(err);
-        return res.sendStatus(500);
-      }
-      res.json(result);
-   });
- });
+  const desk = await deskModel.findByIdAndUpdate(req.params.id, {
+    pictures: newImages
+  }, {
+    new: true
+  }).populate({
+    path: "pictures",
+    populate: {
+      path: "author",
+    },
+  });
+  res.json(desk);
+});
 
 
 app.post("/telegram", jsonParser, function sendMsg(req, res) {

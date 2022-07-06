@@ -39,7 +39,7 @@ function modalWindowOpening() {
       body: JSON.stringify(newArrayPictures),
     });
   }
-  
+
   function removeModalWindow(desk) {
     section.innerHTML = "";
     makeCards(desk);
@@ -86,7 +86,13 @@ function modalWindowOpening() {
 
         let nextDeskID = nextDesk["_id"];
 
-        putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID); 
+        putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID)
+          .then((res) => res.json())
+          .then((data) => {
+            const desk = JSON.stringify(data);
+            localStorage.setItem('desk', desk);
+            makeCards(data);
+          })
         putMethodForNextDesk(nextDeskID, nextDesk, currentPicture);
         let newCurrentDesk;
         for (let desk of arrayOfDesks) {
@@ -94,9 +100,7 @@ function modalWindowOpening() {
             newCurrentDesk = desk;
           }
         }
-        let json = localStorage.getItem("desk");
-        let deskAfterReboot = JSON.parse(json);
-        makeCards(deskAfterReboot);
+
         removeModalWindow(newCurrentDesk);
       } else if (e.target.value === "Send") {
         let archiveDesk = arrayOfDesks.find(
@@ -104,12 +108,14 @@ function modalWindowOpening() {
         );
         let archivedtDeskID = archiveDesk["_id"];
 
-        putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID);
-
+        putMethodForCurrentDesk(currentDeskID, currentDesk, pictureID)
+        .then((res) => res.json())
+        .then((data) => {
+          const desk = JSON.stringify(data);
+          localStorage.setItem('desk', desk);
+          makeCards(data);
+        });
         putMethodForNextDesk(archivedtDeskID, archiveDesk, currentPicture);
-        let json = localStorage.getItem("desk");
-        let deskAfterReboot = JSON.parse(json);
-        makeCards(deskAfterReboot);
         removeModalWindow(currentDesk);
       }
     }

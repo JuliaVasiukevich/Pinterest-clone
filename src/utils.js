@@ -26,6 +26,7 @@ export function makeRandomColor() {
 
 export function makeCards(data) {
   const cards = document.querySelector(".grid");
+  cards.innerHTML = "";
 
   for (let item of data.pictures) {
     const card = make("div", ["card", "grid-item"]);
