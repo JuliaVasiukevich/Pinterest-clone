@@ -2,5 +2,15 @@
 
 body {
   font-size: $base-font-size;
-  font-family: Raleway, sans-serif;
+  font-family: "Roboto", sans-serif;
+  transition: 1s;
+
+  @include themify($themes) {
+    color: themed("colorMainBlack");
+    background-color: themed("colorMainWhite");
+  }
+}
+
+.container {
+  margin: 30px 50px;
 }

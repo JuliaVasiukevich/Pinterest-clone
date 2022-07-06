@@ -1,15 +1,11 @@
-const desks = ['desk1', 'desk2', 'desk3'];
-const claims = ['test1', 'test2', 'test3', 'test4', 'test5', 'test6'];
-
-
-// fetch('http://localhost:3000/desks').then(res => res.json()).then((res) => {
-//     const url = res.data[0].pictures[0].url;
-//     renderImage(url);
-// });
-
-// function renderImage(imageName) {
-//     const wrapper = document.getElementById('pep');
-//     const img = document.createElement('img');
-//     img.src = imageName;
-//     wrapper.append(img);
-// }
+import { makeCards } from "../src/utils.js";
+import { header } from "./components/header/header.js";
+import {data } from "./components/basic-card/basic-card.js"
+import { generateModalDesk } from "./components/modal-windows/modal-windows";
+import { appearModalWindows } from "./components/modal-windows/modal-windows";
+import { disappearModalWindows } from "./components/modal-windows/modal-windows";
+import {
+  modalWindow,
+  putMethodForCurrentDesk,
+  putMethodForNextDesk,
+} from "./components/card_movement/card_movement.js";

@@ -1,0 +1,181 @@
+@use "sass:map";
+
+.modal-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  @include themify($themes) {
+    background-color: themed("colorBackgroundModalWindow");
+  }
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modal-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 10px;
+
+  @include mobile {
+    padding: 15px 5px;
+  }
+}
+
+.modal-window {
+  padding: 20px 40px;
+  @include themify($themes) {
+    background-color: themed("colorMainModalWrapper");
+    border: 1.5px solid themed("colorMainBlack");
+    box-shadow: 0 0 10px themed("colorMainBlack");
+  }
+  border-radius: 10px;
+
+  @include mobile {
+    padding: 10px 20px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: rem(20px);
+  }
+
+  &__element {
+    margin: 10px 0;
+    cursor: pointer;
+
+    &:focus,
+    &:hover {
+      @include themify($themes) {
+        color: themed("colorLightRed");
+      }
+      font-weight: bold;
+    }
+
+    &:active {
+      @include themify($themes) {
+        color: themed("colorMainRed");
+      }
+    }
+  }
+
+  &__form {
+    display: grid;
+    @include mobile {
+      font-size: rem(14px);
+    }
+  }
+
+  &__form > label {
+    margin: 10px 0;
+    cursor: pointer;
+
+    @include mobile {
+      margin: 5px 0;
+    }
+  }
+
+  &__form > label > input {
+    margin-right: 10px;
+
+    @include mobile {
+      margin-right: 5px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: end;
+    margin-left: 150px;
+
+    @include mobile {
+      margin-left: 50px;
+    }
+  }
+
+  &__button {
+    padding: 5px 15px;
+    margin: 0 5px;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #444;
+    background-color: map.get($colors, "colorMainWhite");
+    box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
+    cursor: pointer;
+
+    @include mobile {
+      font-size: rem(12px);
+    }
+  }
+
+  &__button-active {
+    background-color: map.get($colors, "colorLightRed");
+    color: map.get($colors, "colorMainWhite");
+    border: 1px solid map.get($colors, "colorLightRed");
+  }
+
+  &__input{
+    padding: 7px;
+    border: none;
+    background-color: inherit;
+    font-size: rem(15px);
+    line-height: rem(15px);
+    border: 1px solid map.get($colors, "colorLightGray");
+    background-color: map.get($colors, "colorLightGray");
+    border-radius: 5px;
+  }
+
+  &__loading {
+    @include themify($themes) {
+      color: themed("colorMainRed");
+      border: 5px solid themed("colorLightGray");
+      border-top: 5px solid themed("colorLightRed");
+    }
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+
+  &__contact-element {
+    display: flex;
+    margin-top: 10px;
+
+    &:focus,
+    &:hover {
+      @include themify($themes) {
+        color: themed("colorLightRed");
+      }
+      font-weight: bold;
+    }
+
+    &:active {
+      @include themify($themes) {
+        color: themed("colorMainRed");
+      }
+    }
+  }
+
+  &__contact-link {
+    text-decoration: none;
+    margin-left: 10px;
+  }
+
+  &__contact-image {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

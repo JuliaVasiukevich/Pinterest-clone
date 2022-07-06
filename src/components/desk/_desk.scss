@@ -1,0 +1,78 @@
+@use "sass:map";
+
+.grid {
+  margin: 0 auto;
+
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  &-sizer,
+  &-item {
+    width: 20%;
+    padding: 0 5px 10px;
+
+    @include tablet {
+      width: 30%;
+      padding: 0;
+    }
+
+    @include mobile {
+      width: 50%;
+      padding: 0;
+    }
+  }
+
+  &-item {
+    margin-bottom: 10px;
+  }
+}
+
+.desk {
+  max-width: 100%;
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: map.get($colors, "colorLightGray");
+    font-style: italic;
+    font-size: small;
+  }
+}
+
+.add_board {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 50%;
+  font-size: rem(30px);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #524f4e;
+  box-shadow: 2px 8px 8px map.get($colors, "colorDarkGray");
+  border: 0;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.add_board:hover {
+  background: map.get($colors, "colorLightGray");
+  box-shadow: 0 15px 20px map.get($colors, "colorDarkGray");
+  transform: translateY(-7px);
+}
+
+.error-message {
+  color: map.get($colors, "colorMainRed");
+  font-size: 0.8em;
+}

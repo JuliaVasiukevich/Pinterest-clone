@@ -1,0 +1,124 @@
+@use "sass:map";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  :active,
+  :hover,
+  :focus {
+    outline: 0;
+    outline-offset: 0;
+  }
+
+  &__container {
+    box-sizing: border-box;
+  }
+
+  &__logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+
+    @include mobile {
+      margin-right: 10px;
+    }
+  }
+
+  &__name {
+    margin-inline: 5px 20px;
+    font-size: rem(18px);
+    line-height: rem(18px);
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-right: 20px;
+    padding: 10px;
+    border: 1px solid map.get($colors, "colorLightGray");
+    background-color: map.get($colors, "colorLightGray");
+    border-radius: 22px;
+
+    @include mobile {
+      margin-right: 5px;
+    }
+  }
+
+  &__search-logo {
+    width: 15px;
+    height: 20px;
+    color: map.get($colors, "colorDarkGray");
+    margin: 0 10px;
+
+    @include mobile {
+      width: 10px;
+      height: 15px;
+      margin: 0 5px;
+    }
+  }
+
+  &__searchbar {
+    width: 100%;
+    border: none;
+    background-color: inherit;
+    font-size: rem(15px);
+    line-height: rem(15px);
+
+    @include mobile {
+      font-size: rem(12px);
+      line-height: rem(10px);
+    }
+  }
+
+  &__selection {
+    justify-content: flex-end;
+    padding: 10px;
+    border: 1px solid map.get($colors, "colorLightGray");
+    background-color: map.get($colors, "colorLightGray");
+    color: map.get($colors, "colorDarkGray");
+    border-radius: 22px;
+    font-size: rem(15px);
+    line-height: rem(15px);
+
+    @include mobile {
+      padding: 10px 5px;
+      font-size: rem(12px);
+      line-height: rem(10px);
+      width: 22px;
+    }
+  }
+}
+
+.theme {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__checkbox {
+    appearance: none;
+  }
+
+  &__span {
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/moon.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+.theme__checkbox:checked + .theme__span {
+  width: 30px;
+  height: 30px;
+  background-image: url(../images/sun.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,66 @@
+@use "sass:map";
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style-type: none;
+  margin-top: 10px;
+
+  @include mobile {
+    padding: 0;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.footer__legacy {
+  margin-top: 10px;
+  font-style: italic;
+  font-size: smaller;
+  text-align: center;
+}
+
+[data-tooltip] {
+  position: relative;
+  font-weight: 600;
+
+  @include themify($themes) {
+    color: themed("colorMainBlack");
+  }
+
+  &::after {
+    content: attr(data-tooltip);
+    font-size: small;
+    position: absolute;
+    min-width: 200px;
+    max-width: 400px;
+    left: -50;
+    top: -100;
+    color: map.get($colors, "colorMainBlack");
+    background: map.get($colors, "colorLightGray");
+    padding: 0.5em;
+    box-shadow: 2px 2px 5px map.get($colors, "colorDarkGray");
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.5s;
+    text-align: center;
+
+    @include tablet {
+      max-width: 280px;
+    }
+
+    @include mobile {
+      min-width: 100px;
+      max-width: 200px;
+      font-size: x-small;
+      left: 80;
+      right: 200;
+    }
+  }
+
+  &:hover::after {
+    opacity: 1;
+    top: -5em;
+  }
+}

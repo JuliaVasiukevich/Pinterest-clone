@@ -1,9 +1,15 @@
-// @import "scss-reset/_reset.scss";
+@import "reset";
 @import "utils";
+
 @import "variables";
-// @import "fonts";
+@import "fonts";
 @import "base";
 
 // Components
 
+@import "../components/header/header";
+@import "../components/basic-card/basic-card";
 @import "../components/desk/desk";
+@import "../components/modal-windows/modal-windows";
+@import "../components/card_modal-window/card_modal-window";
+@import "../components/footer/footer";
