@@ -32,8 +32,7 @@ document.body.addEventListener("click", (event) => {
     event.target.classList.contains("card__button-claim") ||
     event.target.classList.contains("card__button-desk") ||
     event.target.classList.contains("card__overlay") ||
-    event.target.classList.contains("description__text") ||
-    event.target.classList.contains("menu__team")
+    event.target.classList.contains("description__text")
   ) {
     const modalWrapper = make("div", "modal-wrapper");
     const pictureId = event.target.getAttribute("data-img_id");
@@ -60,10 +59,11 @@ document.body.addEventListener("click", (event) => {
       event.target.classList.contains("card__overlay") ||
       event.target.classList.contains("description__text")
     ) {
-      generateCardModalWindow();}
-      if (event.target.classList.contains("menu__team")) {
-        generateModalContacts();
-      }
+      generateCardModalWindow();
+    }
+    if (event.target.classList.contains("menu__team")) {
+      generateModalContacts();
+    }
     modalWindowOpening();
   }
 })
@@ -167,43 +167,66 @@ function generateModalСlaims(claimsArray) {
   return;
 }
 
-function generateModalContacts() {
-  const modalWindow = document.querySelector(".modal-window");
 
-  const contactTitleElement = make("h2", "modal-window__title");
-  contactTitleElement.innerHTML = "Contact our team";
-  modalWindow.append(contactTitleElement);
 
-  const team = [
-    { name: "Julia V.", link: "https://github.com/JuliaVasiukevich" },
-    { name: "Anna B.", link: "https://github.com/AnnaBR01" },
-    { name: "Julia K.", link: "https://github.com/Julia-Kovalchuk" },
-    { name: "Anna Yu.", link: "https://github.com/annyurchenko" },
-  ];
+document.body.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("menu__team")
+  ) {
+    const modalWrapper = make("div", "modal-wrapper");
+    document.body.append(modalWrapper);
 
-  for (let person of team) {
-    const contactElement = make("div", "modal-window__contact-element");
-    modalWindow.append(contactElement);
+    const modalBody = make("div", "modal-body");
+    modalWrapper.append(modalBody);
 
-    let contactName = make("p", "modal-window__contact-name");
-    contactName.textContent = `${person["name"]}:`;
-    contactElement.append(contactName);
+    const modalWindow = make("div", "modal-window");
+    modalBody.append(modalWindow);
 
-    let contactLink = make("a", "modal-window__contact-link", {
-      href: person["link"],
-      target: "blanck",
-    });
-    contactElement.append(contactLink);
+    const contactTitleElement = make("h2", "modal-window__title");
+    contactTitleElement.innerHTML = "Contact our team";
 
-    let contactImage = make("img", "modal-window__contact-image", {
-      src: "../images/github-logo.png",
-      alt: "select",
-    });
-    contactLink.append(contactImage);
+
+    const team = [{
+        name: "Julia V.",
+        link: "https://github.com/JuliaVasiukevich"
+      },
+      {
+        name: "Anna B.",
+        link: "https://github.com/AnnaBR01"
+      },
+      {
+        name: "Julia K.",
+        link: "https://github.com/Julia-Kovalchuk"
+      },
+      {
+        name: "Anna Yu.",
+        link: "https://github.com/annyurchenko"
+      },
+    ];
+
+    for (let person of team) {
+      const contactElement = make("div", "modal-window__contact-element");
+      modalWindow.append(contactElement);
+
+      let contactName = make("p", "modal-window__contact-name");
+      contactName.textContent = `${person["name"]}:`;
+      contactElement.append(contactName);
+
+      let contactLink = make("a", "modal-window__contact-link", {
+        href: person["link"],
+        target: "blanck",
+      });
+      contactElement.append(contactLink);
+      let contactImage = make("img", "modal-window__contact-image", {
+        alt: "select",
+      });
+      contactImage.src = new URL('../../images/github-logo.png',
+        import.meta.url);
+      contactLink.append(contactImage);
+    }
   }
+});
 
-  return;
-}
 
 document.body.addEventListener("click", (event) => {
   if (

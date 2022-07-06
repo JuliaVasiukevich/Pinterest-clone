@@ -164,6 +164,11 @@
     text-decoration: none;
     margin-left: 10px;
   }
+
+  &__contact-image {
+    height: 30px;
+    width: 30px;
+  }
 }
 
 @keyframes spin {
