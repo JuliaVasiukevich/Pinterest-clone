@@ -13,7 +13,12 @@
     "url": "git+https://github.com/JuliaVasiukevich/Pinterest-clone.git"
   },
   "keywords": [],
-  "author": "Julia Vasiukevich Julia Kovalchuk Anna Britkina Anna Yurchenko",
+  "author": "Julia Vasiukevich",
+  "contributors": [
+    "Julia Kovalchuk",
+     "Anna Britkina", 
+     "Anna Yurchenko"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JuliaVasiukevich/Pinterest-clone/issues"
@@ -21,7 +26,6 @@
   "homepage": "https://github.com/JuliaVasiukevich/Pinterest-clone#readme",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
-    "masonry-layout": "^4.2.2",
     "nodemon": "^2.0.18",
     "parcel": "^2.6.0",
     "typescript": "^4.7.3"
@@ -30,6 +34,7 @@
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "masonry-layout": "^4.2.2",
     "mongodb": "4.7",
     "mongoose": "^6.4.0",
     "request": "^2.88.2"

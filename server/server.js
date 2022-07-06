@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const {
   ObjectId
@@ -9,7 +11,7 @@ const {
   Schema
 } = mongoose;
 mongoose.connect(
-  "mongodb+srv://Julia:Julia@cluster0.szljy.mongodb.net/Pinterest?retryWrites=true&w=majority"
+  process.env.API_DB
 );
 const path = require("path");
 
@@ -114,7 +116,6 @@ app.post("/telegram", jsonParser, function sendMsg(req, res) {
   const config = require('../server/config.json');
   let http = require('request');
   let reqBody = req.body;
-
   // каждый элемент обьекта запихиваем в массив
   let fields = [
     '<b>Report</b>: ' + reqBody.message,
@@ -122,13 +123,12 @@ app.post("/telegram", jsonParser, function sendMsg(req, res) {
   let msg = ''
   // проходимся по массиву и склеиваем все в одну строку
   fields.forEach(field => {
-    msg += field
+    msg += field + '\n'
   });
   //кодируем результат в текст, понятный адресной строке
   msg = encodeURI(msg)
   //делаем запрос
   http.post(`https://api.telegram.org/bot${config.telegram.token}/sendMessage?chat_id=${config.telegram.chat}&parse_mode=html&text=${msg}`, function (error, response, body) {
-    //не забываем обработать ответ
     if (response.statusCode === 200) {
       res.status(200).json({
         status: 'ok',

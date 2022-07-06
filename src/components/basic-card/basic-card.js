@@ -1,9 +1,12 @@
 import {
   makeCards
 } from "../../utils.js";
+import {
+  API_URL
+} from "../../utils.js"
 
 let firstDesk;
-export const data = fetch("http://localhost:3000/desks")
+export const data = fetch(`http://localhost:3000/desks`)
   .then((res) => res.json())
   .then((res) => {
     firstDesk = res.data[0];

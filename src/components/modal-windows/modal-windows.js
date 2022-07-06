@@ -144,9 +144,6 @@ function generateModalСlaims(claimsArray) {
       if (radio.checked) {
 
         event.preventDefault();
-        // const modalWrapper = document.querySelector(".modal-wrapper");
-        // const pictureID = modalWrapper.getAttribute('data-img_id');
-        // console.log(pictureID);
         let msg = {
           message: radio.value,
         };

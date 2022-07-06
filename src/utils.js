@@ -40,10 +40,10 @@ export function makeCards(data) {
       alt: "picture",
     });
 
-    cardImage.setAttribute("data-img_id", `${item._id}`); 
+    cardImage.setAttribute("data-img_id", `${item._id}`);
 
     const cardOverlay = make("div", "card__overlay");
-    cardOverlay.setAttribute("data-img_id", `${item._id}`); 
+    cardOverlay.setAttribute("data-img_id", `${item._id}`);
     cardOverlay.style.backgroundColor = `url(${API_URL}${PICTURES_PREFIX}${item["url"]})`;
     pictureBox.append(cardImage, cardOverlay);
 
@@ -93,13 +93,23 @@ export function makeCards(data) {
     cardImage.onload = () => {
       var Masonry = require("masonry-layout");
       var elem = document.querySelector(".grid");
-      var msnry = new Masonry(elem, {
-        itemSelector: ".grid-item",
-        percentPosition: true,
-        fitWidth: true,
-        gutter: 10,
-        columnWidth: 200,
-      });
+      if (data.pictures.length < 3) {
+        var msnry = new Masonry(elem, {
+          itemSelector: ".grid-item",
+          // percentPosition: true,
+          fitWidth: true,
+          // gutter: 10,
+          columnWidth: 600,
+        });
+      } else {
+        var msnry = new Masonry(elem, {
+          itemSelector: ".grid-item",
+          percentPosition: true,
+          fitWidth: true,
+          gutter: 10,
+          columnWidth: 200,
+        });
+      }
     };
   }
   return cards;
