@@ -1,7 +1,7 @@
-import { makeCards } from "../src/utils.js";
-import { header } from "./components/header/header.js";
-import {data } from "./components/basic-card/basic-card.js"
-import { generateModalDesk } from "./components/modal-windows/modal-windows";
+import "../src/utils.js";
+import "./components/header/header.js";
+import "./components/basic-card/basic-card.js"
+import "./components/modal-windows/modal-windows";
 import { appearModalWindows } from "./components/modal-windows/modal-windows";
 import { disappearModalWindows } from "./components/modal-windows/modal-windows";
 import {

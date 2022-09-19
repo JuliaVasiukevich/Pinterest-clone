@@ -1,4 +1,4 @@
-import { make, makeCards } from "../../utils.js";
+import { make, makeCards, API_URL } from "../../utils.js";
 
 export function header() {
   const theme = document.body.querySelector(".theme__checkbox");
@@ -33,7 +33,7 @@ const search = document.querySelector(".header__searchbar");
 let arrayOfAllCards;
 
 async function fetchArrayOfCards() {
-  const response = await fetch("http://localhost:3000/desks")
+  const response = await fetch(`${API_URL}/desks`)
     .then((res) => res.json())
     .then((res) => {
       return (arrayOfAllCards = res.data);

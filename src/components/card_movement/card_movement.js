@@ -1,5 +1,6 @@
 import {
-  makeCards
+  makeCards,
+  API_URL
 } from "../../utils.js";
 
 export {
@@ -17,7 +18,7 @@ function modalWindowOpening() {
   function putMethodForCurrentDesk(deskID, currentDesk, pictureID) {
     let arrayPictures = currentDesk["pictures"];
     let newArrayPictures = arrayPictures.filter((e) => e["_id"] !== pictureID);
-    return fetch(`http://localhost:3000/desks/${deskID}`, {
+    return fetch(`${API_URL}/desks/${deskID}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -31,7 +32,7 @@ function modalWindowOpening() {
     arrayPictures.push(currentPicture);
     let newArrayPictures = arrayPictures;
 
-    return fetch(`http://localhost:3000/desks/${deskID}`, {
+    return fetch(`${API_URL}/desks/${deskID}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -53,7 +54,7 @@ function modalWindowOpening() {
     let nextDesk;
 
     async function fetchMovies() {
-      const response = await fetch("http://localhost:3000/desks");
+      const response = await fetch(`${API_URL}/desks`);
       let res = await response.json();
       arrayOfDesks = await res.data;
 

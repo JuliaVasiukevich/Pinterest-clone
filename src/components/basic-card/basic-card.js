@@ -6,7 +6,7 @@ import {
 } from "../../utils.js"
 
 let firstDesk;
-export const data = fetch(`http://localhost:3000/desks`)
+export const data = fetch(`${API_URL}/desks`)
   .then((res) => res.json())
   .then((res) => {
     firstDesk = res.data[0];
