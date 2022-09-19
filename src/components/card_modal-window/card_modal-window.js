@@ -16,7 +16,7 @@ export function generateCardModalWindow(obj) {
   const pictureId = modalWrapper.getAttribute("data-img_id");
 
   async function findPicture() {
-    const response = await fetch("http://localhost:3000/desks");
+    const response = await fetch(`${API_URL}/desks`);
     let res = await response.json();
     arrayOfDesks = await res.data;
 

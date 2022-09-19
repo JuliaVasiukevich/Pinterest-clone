@@ -1,12 +1,13 @@
 import {
-    make
+    make,
+    API_URL
 } from "../../utils.js";
 import {
     generateListOfDesks
 } from "../../components/header/header.js";
 
 export function getDesks(yourFunction) {
-    return fetch("http://localhost:3000/desks")
+    return fetch(`${API_URL}/desks`)
         .then((res) => res.json())
         .then((res) => {
             const titles = res.data.map((desk) => {
@@ -55,7 +56,7 @@ addBoardButton.addEventListener("click", (event) => {
 
         async function addNewDesk(newDesk) {
             try {
-                const response = await fetch("http://localhost:3000/desks", {
+                const response = await fetch(`${API_URL}/desks`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import {
   make,
-  makeCards
+  makeCards,
+  API_URL
 } from "../../utils.js";
 import {
   getDesks
@@ -33,7 +34,7 @@ document.body.addEventListener("click", (event) => {
     event.target.classList.contains("card__button-desk") ||
     event.target.classList.contains("card__overlay") ||
     event.target.classList.contains("description__text")
-  ) {
+    ) {
     const modalWrapper = make("div", "modal-wrapper");
     const pictureId = event.target.getAttribute("data-img_id");
     modalWrapper.setAttribute("data-img_id", `${pictureId}`);
@@ -147,7 +148,7 @@ function generateModalСlaims(claimsArray) {
         let msg = {
           message: radio.value,
         };
-        fetch("http://localhost:3000/telegram", {
+        fetch(`${API_URL}/telegram`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -252,7 +253,7 @@ select.addEventListener("change", function (event) {
 
   const deskName = event.target.value;
   let arrayOfDesks = null;
-  const data = fetch("http://localhost:3000/desks")
+  const data = fetch(`${API_URL}/desks`)
     .then((res) => res.json())
     .then((res) => {
       arrayOfDesks = res.data;

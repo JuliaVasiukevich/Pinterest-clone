@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Hello world!",
   "main": "public/dist/index.js",
+
   "scripts": {
     "start": "parcel ./src/index.html --dist-dir public/dist",
     "build": "parcel build ./src/index.html",
-    "server:dev": "nodemon ./server/server.js"
+    "server:dev": "nodemon ./server/server.js",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -23,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/JuliaVasiukevich/Pinterest-clone/issues"
   },
-  "homepage": "https://github.com/JuliaVasiukevich/Pinterest-clone#readme",
+  "homepage": "https://juliavasiukevich.github.io/Pinterest-clone/",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
     "nodemon": "^2.0.18",
